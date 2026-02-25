@@ -1,19 +1,28 @@
 package com.ovinos.entity.superClass;
 
+import com.ovinos.entity.Batch;
 import jakarta.persistence.*;
 
 import java.util.Date;
 
-@MappedSuperclass
-public class Sheep {
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "sexo")
+public abstract class Sheep {
+
     @Id
     private String id;
+
     private Date dataNascimento;
     private Double peso;
 
+    @ManyToOne
+    @JoinColumn(name = "batch_id")
+    private Batch batch;
+
     public Sheep(){}
 
-    public Sheep(String id, Date dataNascimento, Double peso) {
+    public Sheep(String id, Date dataNascimento, Double peso, Batch batch) {
         this.id = id;
         this.dataNascimento = dataNascimento;
         this.peso = (Double) peso;

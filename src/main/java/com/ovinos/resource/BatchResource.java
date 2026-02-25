@@ -1,7 +1,7 @@
 package com.ovinos.resource;
 
-import com.ovinos.entity.Female;
-import com.ovinos.service.FemaleService;
+import com.ovinos.entity.Batch;
+import com.ovinos.service.BatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/female")
-public class FemaleResource {
+@RequestMapping(value = "/batch")
+public class BatchResource {
 
     @Autowired
-    private FemaleService service;
+    private BatchService service;
 
     @GetMapping
-    public ResponseEntity<List<Female>> findAll(){
-        List<Female> list = service.findAll();
+    public ResponseEntity<List<Batch>> findAll(){
+        List<Batch> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 }

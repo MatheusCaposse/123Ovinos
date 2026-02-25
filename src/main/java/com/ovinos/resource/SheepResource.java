@@ -1,9 +1,7 @@
 package com.ovinos.resource;
 
-import com.ovinos.entity.Female;
-import com.ovinos.entity.Male;
-import com.ovinos.service.FemaleService;
-import com.ovinos.service.MaleService;
+import com.ovinos.entity.superClass.Sheep;
+import com.ovinos.service.SheepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/male")
-public class MaleResource {
+@RequestMapping(value = "/sheep")
+public class SheepResource {
 
     @Autowired
-    private MaleService service;
+    private SheepService service;
 
     @GetMapping
-    public ResponseEntity<List<Male>> findAll(){
-        List<Male> list = service.findAll();
+    public ResponseEntity<List<Sheep>> findAll(){
+        List<Sheep> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 }
