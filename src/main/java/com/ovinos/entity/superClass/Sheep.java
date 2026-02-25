@@ -1,19 +1,19 @@
-package com.ovinos.entity;
+package com.ovinos.entity.superClass;
 
 import jakarta.persistence.*;
 
 import java.util.Date;
 
-@Entity
+@MappedSuperclass
 public class Sheep {
     @Id
-    private Long id;
+    private String id;
     private Date dataNascimento;
     private Double peso;
 
     public Sheep(){}
 
-    public Sheep(Long id, Date dataNascimento, Double peso) {
+    public Sheep(String id, Date dataNascimento, Double peso) {
         this.id = id;
         this.dataNascimento = dataNascimento;
         this.peso = (Double) peso;
@@ -35,11 +35,11 @@ public class Sheep {
         this.dataNascimento = dataNascimento;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

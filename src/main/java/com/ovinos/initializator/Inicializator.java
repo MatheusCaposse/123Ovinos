@@ -1,8 +1,7 @@
 package com.ovinos.initializator;
 
-import com.ovinos.entity.Sheep;
-import com.ovinos.repository.SheepRepository;
-import com.ovinos.resource.SheepResource;
+import com.ovinos.entity.Female;
+import com.ovinos.repository.FemaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -14,18 +13,18 @@ import java.util.Arrays;
 public class Inicializator implements CommandLineRunner {
 
     @Autowired
-    private SheepRepository sheepRepository;
+    private FemaleRepository femaleRepository;
 
     SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
     public void run(String... args) throws Exception {
 
+        Female f1 = new Female("1", sfd.parse("11/01/2026"),  (double) 13);
+        Female f2 = new Female("2", sfd.parse("01/02/2026"),  (double) 15);
+        Female f3 = new Female("3", sfd.parse("20/02/2026"),  (double) 12.2);
 
-        Sheep s1 = new Sheep( (long) 1, sfd.parse("23/02/2026"),  (double) 10);
-        Sheep s2 = new Sheep( (long) 2, sfd.parse("20/02/2026"), (double) 14);
-        Sheep s3 = new Sheep( (long) 3, sfd.parse("10/01/2026"), (double) 13.3);
+        femaleRepository.saveAll(Arrays.asList(f1, f2, f3));
 
-        sheepRepository.saveAll(Arrays.asList(s1,s2,s3));
     }
 }
