@@ -4,6 +4,7 @@ import com.ovinos.entity.Enum.BatchType;
 import com.ovinos.entity.superClass.Sheep;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,10 +14,14 @@ public class Batch {
     private String id;
 
     private BatchType batchType;
-    private int totalAnimal;
+    private int totalAnimal = 0;
 
     @OneToMany(mappedBy = "batch")
-    private List<Sheep> batch;
+    private List<Sheep> batch = new ArrayList<>();
+
+    public void addSheep(Sheep sheep){
+        batch.add(sheep);
+    }
 
     public Batch (){}
 
@@ -41,8 +46,13 @@ public class Batch {
         this.batchType = batchType;
     }
 
+
     public int getTotalAnimal() {
-        return totalAnimal;
+        return batch.size();
+    }
+
+    public void setBatch(List<Sheep> batch) {
+        this.batch = batch;
     }
 
     public List<Sheep> getBatch() {

@@ -26,6 +26,11 @@ public abstract class Sheep {
         this.id = id;
         this.dataNascimento = dataNascimento;
         this.peso = (Double) peso;
+        this.batch = batch;
+
+        if (batch != null){
+            batch.addSheep(this);
+        }
     }
 
     public Double getPeso() {
