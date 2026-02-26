@@ -18,9 +18,8 @@ public class Batch {
     private String id;
 
     private BatchType batchType;
-    private int totalAnimal = 0;
 
-    @OneToMany(mappedBy = "batch")
+    @OneToMany(mappedBy = "batch", fetch = FetchType.EAGER)
     private List<Sheep> listSheep = new ArrayList<>();
 
     public void addSheep(Sheep sheep){
@@ -53,7 +52,7 @@ public class Batch {
 
 
     public int getTotalAnimal() {
-        return listSheep.size();
+        return listSheep != null ? listSheep.size() : 0;
     }
 
     public void setListSheep(List<Sheep> batch) {
