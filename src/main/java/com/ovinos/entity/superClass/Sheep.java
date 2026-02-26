@@ -1,5 +1,7 @@
 package com.ovinos.entity.superClass;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ovinos.DTO.BatchDTO;
 import com.ovinos.entity.Batch;
 import jakarta.persistence.*;
 
@@ -57,7 +59,11 @@ public abstract class Sheep {
         this.id = id;
     }
 
-    public Batch getBatch() {
-        return batch;
+    public void setBatch(Batch batch) {
+        this.batch = batch;
+    }
+
+    public BatchDTO getBatch() {
+        return new BatchDTO(batch);
     }
 }

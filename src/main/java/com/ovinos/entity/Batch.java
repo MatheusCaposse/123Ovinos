@@ -1,12 +1,15 @@
 package com.ovinos.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ovinos.DTO.SheepDTO;
 import com.ovinos.entity.Enum.BatchType;
 import com.ovinos.entity.superClass.Sheep;
+import com.ovinos.repository.SheepRepository;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Batch {
@@ -18,10 +21,11 @@ public class Batch {
     private int totalAnimal = 0;
 
     @OneToMany(mappedBy = "batch")
-    private List<Sheep> batch = new ArrayList<>();
+    private List<Sheep> listSheep = new ArrayList<>();
 
     public void addSheep(Sheep sheep){
-        batch.add(sheep);
+        listSheep.add(sheep);
+        sheep.setBatch(this);
     }
 
     public Batch (){}
@@ -49,16 +53,19 @@ public class Batch {
 
 
     public int getTotalAnimal() {
-        return batch.size();
+        return listSheep.size();
     }
 
-    public void setBatch(List<Sheep> batch) {
-        this.batch = batch;
+    public void setListSheep(List<Sheep> batch) {
+        this.listSheep = batch;
     }
 
-    @JsonIgnore
-    public List<Sheep> getBatch() {
-        return batch;
+    public List<SheepDTO> getListSheep() {
+        List<SheepDTO> obj = listSheep
+                .stream()
+                .map(SheepDTO::new)
+                .toList();
+        return obj;
     }
 
 
