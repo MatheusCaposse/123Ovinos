@@ -1,6 +1,7 @@
 package com.ovinos.entity;
 
 import com.ovinos.entity.Enum.SheepSex;
+import com.ovinos.entity.Enum.SheepStatus;
 import com.ovinos.entity.superClass.Sheep;
 import jakarta.persistence.*;
 
@@ -12,8 +13,8 @@ public class Male extends Sheep {
 
     public Male(){}
 
-    public Male(String id, Date dataNascimento, Double peso, Batch batch) {
-        super(id, dataNascimento, peso, batch);
+    public Male(String id, Date dataNascimento, SheepStatus status, Double peso, Batch batch) {
+        super(id, dataNascimento,status ,peso, batch);
         setSex(SheepSex.MACHO);
     }
 }

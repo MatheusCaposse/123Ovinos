@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.ovinos.DTO.BatchDTO;
 import com.ovinos.entity.Batch;
 import com.ovinos.entity.Enum.SheepSex;
+import com.ovinos.entity.Enum.SheepStatus;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.Date;
         "id",
         "sex",
         "peso",
+        "status",
         "dataNascimento",
         "batch"
 })
@@ -27,6 +29,7 @@ public abstract class Sheep {
     private Date dataNascimento;
     private Double peso;
     private SheepSex sex;
+    private SheepStatus status;
 
     @ManyToOne
     @JoinColumn(name = "batch_id")
@@ -34,15 +37,24 @@ public abstract class Sheep {
 
     public Sheep(){}
 
-    public Sheep(String id, Date dataNascimento, Double peso, Batch batch) {
+    public Sheep(String id, Date dataNascimento, SheepStatus status, Double peso, Batch batch) {
         this.id = id;
         this.dataNascimento = dataNascimento;
         this.peso = (Double) peso;
         this.batch = batch;
+        this.status = status;
 
         if (batch != null){
             batch.addSheep(this);
         }
+    }
+
+    public SheepStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(SheepStatus status) {
+        this.status = status;
     }
 
     public SheepSex getSex() {
