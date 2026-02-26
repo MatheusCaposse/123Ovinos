@@ -1,5 +1,6 @@
 package com.ovinos.DTO;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.ovinos.entity.Batch;
 import com.ovinos.entity.Enum.SheepSex;
 import com.ovinos.entity.superClass.Sheep;
@@ -8,7 +9,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 import java.util.Date;
-
+@JsonPropertyOrder({
+        "id",
+        "sex",
+        "peso",
+        "dataNascimento"
+})
 public class SheepDTO {
 
     private String id;
