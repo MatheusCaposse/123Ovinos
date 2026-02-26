@@ -1,14 +1,23 @@
 package com.ovinos.entity.superClass;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.ovinos.DTO.BatchDTO;
 import com.ovinos.entity.Batch;
+import com.ovinos.entity.Enum.SheepSex;
 import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@JsonPropertyOrder({
+        "id",
+        "sex",
+        "peso",
+        "dataNascimento",
+        "batch"
+})
 @DiscriminatorColumn(name = "sexo")
 public abstract class Sheep {
 
@@ -17,6 +26,7 @@ public abstract class Sheep {
 
     private Date dataNascimento;
     private Double peso;
+    private SheepSex sex;
 
     @ManyToOne
     @JoinColumn(name = "batch_id")
@@ -33,6 +43,14 @@ public abstract class Sheep {
         if (batch != null){
             batch.addSheep(this);
         }
+    }
+
+    public SheepSex getSex() {
+        return sex;
+    }
+
+    public void setSex(SheepSex sex) {
+        this.sex = sex;
     }
 
     public Double getPeso() {

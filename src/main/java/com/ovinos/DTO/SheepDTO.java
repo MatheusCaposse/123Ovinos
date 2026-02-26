@@ -1,6 +1,7 @@
 package com.ovinos.DTO;
 
 import com.ovinos.entity.Batch;
+import com.ovinos.entity.Enum.SheepSex;
 import com.ovinos.entity.superClass.Sheep;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -14,6 +15,7 @@ public class SheepDTO {
 
     private Date dataNascimento;
     private Double peso;
+    private SheepSex sex;
 
     public SheepDTO(){}
 
@@ -21,6 +23,15 @@ public class SheepDTO {
         this.id = sheep.getId();
         this.dataNascimento = sheep.getDataNascimento();
         this.peso = sheep.getPeso();
+        this.sex = sheep.getSex();
+    }
+
+    public SheepSex getSex() {
+        return sex;
+    }
+
+    public void setSex(SheepSex sex) {
+        this.sex = sex;
     }
 
     public Double getPeso() {
