@@ -1,13 +1,17 @@
-package com.ovinos.DTO;
+package com.ovinos.entity;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.ovinos.entity.Batch;
+import com.ovinos.DTO.SheepDTO;
 import com.ovinos.entity.Enum.SheepSex;
 import com.ovinos.entity.Enum.SheepStatus;
 import com.ovinos.entity.superClass.Sheep;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+@Entity
 @JsonPropertyOrder({
         "id",
         "sex",
@@ -15,8 +19,9 @@ import java.util.Date;
         "status",
         "dataNascimento"
 })
-public class SheepDTO {
+public class Deads {
 
+    @Id
     private String id;
 
     private Date dataNascimento;
@@ -28,38 +33,22 @@ public class SheepDTO {
     @Enumerated(EnumType.STRING)
     private SheepStatus status;
 
-    public SheepDTO(){}
+    public Deads(){}
 
-    public SheepDTO(Sheep sheep) {
+    public Deads(Sheep sheep) {
         this.id = sheep.getId();
         this.dataNascimento = sheep.getDataNascimento();
         this.peso = sheep.getPeso();
         this.sex = sheep.getSex();
-        this.status = sheep.getStatus();
+        this.status = SheepStatus.MORTO;
     }
 
-    public SheepStatus getStatus() {
-        return status;
+    public String getId() {
+        return id;
     }
 
-    public void setStatus(SheepStatus status) {
-        this.status = status;
-    }
-
-    public SheepSex getSex() {
-        return sex;
-    }
-
-    public void setSex(SheepSex sex) {
-        this.sex = sex;
-    }
-
-    public Double getPeso() {
-        return peso;
-    }
-
-    public void setPeso(Double peso) {
-        this.peso = peso;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Date getDataNascimento() {
@@ -70,11 +59,27 @@ public class SheepDTO {
         this.dataNascimento = dataNascimento;
     }
 
-    public String getId() {
-        return id;
+    public Double getPeso() {
+        return peso;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
+    public SheepSex getSex() {
+        return sex;
+    }
+
+    public void setSex(SheepSex sex) {
+        this.sex = sex;
+    }
+
+    public SheepStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(SheepStatus status) {
+        this.status = status;
     }
 }

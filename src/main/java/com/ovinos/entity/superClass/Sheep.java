@@ -28,7 +28,11 @@ public abstract class Sheep {
 
     private Date dataNascimento;
     private Double peso;
+
+    @Enumerated(EnumType.STRING)
     private SheepSex sex;
+
+    @Enumerated(EnumType.STRING)
     private SheepStatus status;
 
     @ManyToOne

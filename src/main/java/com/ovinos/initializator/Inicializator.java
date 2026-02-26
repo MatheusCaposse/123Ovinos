@@ -1,11 +1,13 @@
 package com.ovinos.initializator;
 
 import com.ovinos.entity.Batch;
+import com.ovinos.entity.Deads;
 import com.ovinos.entity.Enum.BatchType;
 import com.ovinos.entity.Enum.SheepStatus;
 import com.ovinos.entity.Female;
 import com.ovinos.entity.Male;
 import com.ovinos.repository.BatchRepository;
+import com.ovinos.repository.DeadsRepository;
 import com.ovinos.repository.SheepRepository;
 import com.ovinos.resource.BatchResource;
 import com.ovinos.resource.SheepResource;
@@ -25,6 +27,9 @@ public class Inicializator implements CommandLineRunner {
     @Autowired
     private BatchRepository batchRepository;
 
+    @Autowired
+    private DeadsRepository deadsRepository;
+
     SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
@@ -42,6 +47,10 @@ public class Inicializator implements CommandLineRunner {
         Male m2 = new Male("4", sfd.parse("07/12/2025"), SheepStatus.ESTAÇÃO_DE_MONTA,(double) 15, batch2);
 
         sheepRepository.saveAll(Arrays.asList(f1, f2, m1, m2));
+
+        Deads d1 = new Deads(f1);
+
+        deadsRepository.save(d1);
 
     }
 }
