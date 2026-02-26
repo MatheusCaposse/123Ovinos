@@ -1,5 +1,6 @@
 package com.ovinos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ovinos.entity.Enum.BatchType;
 import com.ovinos.entity.superClass.Sheep;
 import jakarta.persistence.*;
@@ -55,6 +56,7 @@ public class Batch {
         this.batch = batch;
     }
 
+    @JsonIgnore
     public List<Sheep> getBatch() {
         return batch;
     }

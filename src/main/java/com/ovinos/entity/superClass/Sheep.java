@@ -56,4 +56,8 @@ public abstract class Sheep {
     public void setId(String id) {
         this.id = id;
     }
+
+    public Batch getBatch() {
+        return batch;
+    }
 }
