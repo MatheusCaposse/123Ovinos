@@ -3,6 +3,7 @@ package com.ovinos.DTO;
 import com.ovinos.entity.Batch;
 import com.ovinos.entity.Enum.BatchType;
 import com.ovinos.entity.superClass.Sheep;
+import com.ovinos.repository.BatchRepository;
 
 import java.util.ArrayList;
 import java.util.List;

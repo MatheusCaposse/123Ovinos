@@ -1,6 +1,7 @@
 package com.ovinos.entity.superClass;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.ovinos.DTO.BatchDTO;
 import com.ovinos.entity.Batch;
@@ -97,7 +98,13 @@ public abstract class Sheep {
         this.batch = batch;
     }
 
-    public BatchDTO getBatch() {
+    @JsonIgnore
+    public Batch getBatch() {
+        return batch;
+    }
+
+    @JsonProperty("batch")
+    public BatchDTO getBatchDTO() {
         if (batch==null){
             return null;
         } else {

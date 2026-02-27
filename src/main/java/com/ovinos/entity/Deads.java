@@ -1,7 +1,9 @@
 package com.ovinos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.ovinos.DTO.SheepDTO;
+import com.ovinos.entity.Enum.BatchType;
 import com.ovinos.entity.Enum.SheepSex;
 import com.ovinos.entity.Enum.SheepStatus;
 import com.ovinos.entity.superClass.Sheep;
@@ -26,12 +28,16 @@ public class Deads {
 
     private Date dataNascimento;
     private Double peso;
+    @ManyToOne
+    private Batch batch;
 
     @Enumerated(EnumType.STRING)
     private SheepSex sex;
 
+    private SheepStatus lastStatus;
+
     @Enumerated(EnumType.STRING)
-    private SheepStatus status;
+    private SheepStatus status = SheepStatus.MORTO;
 
     public Deads(){}
 
@@ -40,7 +46,8 @@ public class Deads {
         this.dataNascimento = sheep.getDataNascimento();
         this.peso = sheep.getPeso();
         this.sex = sheep.getSex();
-        this.status = SheepStatus.MORTO;
+        this.lastStatus = sheep.getStatus();
+        this.batch = sheep.getBatch();
     }
 
     public String getId() {
@@ -81,5 +88,22 @@ public class Deads {
 
     public void setStatus(SheepStatus status) {
         this.status = status;
+    }
+
+    @JsonIgnore
+    public Batch getBatch() {
+        return batch;
+    }
+
+    public void setBatch(Batch batch) {
+        this.batch = batch;
+    }
+
+    public SheepStatus getLastStatus() {
+        return lastStatus;
+    }
+
+    public void setLastStatus(SheepStatus lastStatus) {
+        this.lastStatus = lastStatus;
     }
 }
