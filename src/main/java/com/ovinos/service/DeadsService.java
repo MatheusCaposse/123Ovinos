@@ -26,8 +26,8 @@ public class DeadsService {
         return list;
     }
 
-    public void addDeadSheep(Sheep sheep){
-        Sheep obj = sheepRepository.findById(sheep.getId())
+    public void addDeadSheep(String id){
+        Sheep obj = sheepRepository.findById(id)
                 .orElseThrow(() -> new SheepException("Sheep not found"));
 
         obj.setBatch(null);

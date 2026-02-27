@@ -52,7 +52,6 @@ public class Inicializator implements CommandLineRunner {
 
         sheepRepository.saveAll(Arrays.asList(f1, f2, m1, m2));
 
-        deadsService.addDeadSheep(m1);
 
     }
 }
