@@ -11,6 +11,7 @@ import com.ovinos.repository.DeadsRepository;
 import com.ovinos.repository.SheepRepository;
 import com.ovinos.resource.BatchResource;
 import com.ovinos.resource.SheepResource;
+import com.ovinos.service.DeadsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +31,9 @@ public class Inicializator implements CommandLineRunner {
     @Autowired
     private DeadsRepository deadsRepository;
 
+    @Autowired
+    private DeadsService deadsService;
+
     SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
@@ -48,9 +52,7 @@ public class Inicializator implements CommandLineRunner {
 
         sheepRepository.saveAll(Arrays.asList(f1, f2, m1, m2));
 
-        Deads d1 = new Deads(f1);
-
-        deadsRepository.save(d1);
+        deadsService.addDeadSheep(m1);
 
     }
 }

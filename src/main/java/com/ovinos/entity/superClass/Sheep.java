@@ -98,6 +98,11 @@ public abstract class Sheep {
     }
 
     public BatchDTO getBatch() {
-        return new BatchDTO(batch);
+        if (batch==null){
+            return null;
+        } else {
+            return new BatchDTO(batch);
+        }
+
     }
 }
