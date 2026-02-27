@@ -30,6 +30,12 @@ public class DeadsService {
         Sheep obj = sheepRepository.findById(id)
                 .orElseThrow(() -> new SheepException("Sheep not found"));
 
+        Optional<Deads> dead = repository.findById(obj.getId());
+
+        if(dead.isPresent()){
+            throw new SheepException("This sheep already in Deads table");
+        }
+
         obj.setBatch(null);
         obj.setStatus(SheepStatus.MORTO);
 
