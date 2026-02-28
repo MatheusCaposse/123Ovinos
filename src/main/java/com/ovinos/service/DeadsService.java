@@ -34,6 +34,11 @@ public class DeadsService {
         return list;
     }
 
+    public Deads findById(String id){
+        Deads obj = repository.findById(id).orElseThrow(() -> new SheepException("Sheep not found"));
+        return obj;
+    }
+
     public void addDeadSheep(String id){
         Sheep obj = sheepRepository.findById(id)
                 .orElseThrow(() -> new SheepException("Sheep not found"));

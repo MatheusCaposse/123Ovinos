@@ -24,6 +24,12 @@ public class DeadsResource {
         return ResponseEntity.ok().body(list);
     }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Deads> findById(@PathVariable String id){
+        Deads obj = service.findById(id);
+        return ResponseEntity.ok().body(obj);
+    }
+
     @GetMapping(value = "/addDead/{id}")
     public ResponseEntity<Void> addDeadSheep(@PathVariable String id){
        service.addDeadSheep(id);

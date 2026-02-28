@@ -23,4 +23,5 @@ public class BatchService {
         Batch obj = repository.findById(id).orElseThrow(()-> new BatchException("Batch not found"));
         return obj;
     }
+
 }
