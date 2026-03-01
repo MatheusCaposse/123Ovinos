@@ -3,10 +3,7 @@ package com.ovinos.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.ovinos.DTO.SheepDTO;
-import com.ovinos.entity.Enum.BatchType;
-import com.ovinos.entity.Enum.ConditionSheep;
-import com.ovinos.entity.Enum.SheepSex;
-import com.ovinos.entity.Enum.SheepStatus;
+import com.ovinos.entity.Enum.*;
 import com.ovinos.entity.superClass.Sheep;
 import jakarta.persistence.*;
 
@@ -39,8 +36,10 @@ public class Deads {
 
     @Enumerated(EnumType.STRING)
     private SheepStatus status = SheepStatus.MORTO;
-
+    @Enumerated(EnumType.STRING)
     private ConditionSheep lastConditional;
+    @Enumerated(EnumType.STRING)
+    private RaceSheep raceSheep;
 
     public Deads(){}
 
@@ -52,6 +51,7 @@ public class Deads {
         this.lastStatus = sheep.getStatus();
         this.batch = sheep.getBatch();
         this.lastConditional = sheep.getConditionSheep();
+        this.raceSheep = sheep.getRaceSheep();
     }
 
     public String getId() {
@@ -92,6 +92,14 @@ public class Deads {
 
     public void setStatus(SheepStatus status) {
         this.status = status;
+    }
+
+    public RaceSheep getRaceSheep() {
+        return raceSheep;
+    }
+
+    public void setRaceSheep(RaceSheep raceSheep) {
+        this.raceSheep = raceSheep;
     }
 
     public ConditionSheep getLastConditional() {

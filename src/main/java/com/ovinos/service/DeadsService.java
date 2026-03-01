@@ -66,11 +66,11 @@ public class DeadsService {
         }
 
         if (obj.getSex() == SheepSex.FEMEA){
-            Female sheep = new Female(obj.getId(), obj.getDataNascimento(), obj.getLastStatus() ,obj.getLastConditional() , obj.getPeso(), oldBatch);
+            Female sheep = new Female(obj.getId(), obj.getDataNascimento(), obj.getLastStatus() ,obj.getLastConditional() ,obj.getRaceSheep() , obj.getPeso(), oldBatch);
             sheepRepository.save(sheep);
         }
         else {
-            Male sheep = new Male(obj.getId(), obj.getDataNascimento(), obj.getLastStatus(), obj.getLastConditional() ,obj.getPeso(), oldBatch);
+            Male sheep = new Male(obj.getId(), obj.getDataNascimento(), obj.getLastStatus(), obj.getLastConditional(), obj.getRaceSheep() ,obj.getPeso(), oldBatch);
             sheepRepository.save(sheep);
         }
         repository.delete(obj);

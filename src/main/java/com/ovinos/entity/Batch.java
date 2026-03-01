@@ -17,6 +17,7 @@ public class Batch {
     @Id
     private String id;
 
+    @Enumerated(EnumType.STRING)
     private BatchType batchType;
 
     @OneToMany(mappedBy = "batch", fetch = FetchType.EAGER)
