@@ -3,6 +3,7 @@ package com.ovinos.initializator;
 import com.ovinos.entity.Batch;
 import com.ovinos.entity.Deads;
 import com.ovinos.entity.Enum.BatchType;
+import com.ovinos.entity.Enum.ConditionSheep;
 import com.ovinos.entity.Enum.SheepStatus;
 import com.ovinos.entity.Female;
 import com.ovinos.entity.Male;
@@ -44,11 +45,11 @@ public class Inicializator implements CommandLineRunner {
 
         batchRepository.saveAll(Arrays.asList(batch1, batch2));
 
-        Female f1 = new Female("1", sfd.parse("02/01/2026"), SheepStatus.PRENHA,(double) 10, batch1);
-        Male m1 = new Male("2", sfd.parse("27/12/2025"), SheepStatus.ESTAÇÃO_DE_MONTA,(double) 16, batch1);
-        Female f2 = new Female("3", sfd.parse("12/02/2026"), SheepStatus.PRENHA,(double) 10, batch1);
+        Female f1 = new Female("1", sfd.parse("02/01/2026"),SheepStatus.VIVO, ConditionSheep.MAMANDO, (double) 10, batch1);
+        Male m1 = new Male("2", sfd.parse("27/12/2025"), SheepStatus.DOADO, ConditionSheep.RECRIA,(double) 16, batch1);
+        Female f2 = new Female("3", sfd.parse("12/02/2026"), SheepStatus.DESCONHECIDO,ConditionSheep.COBERTA,(double) 10, batch1);
 
-        Male m2 = new Male("4", sfd.parse("07/12/2025"), SheepStatus.ESTAÇÃO_DE_MONTA,(double) 15, batch2);
+        Male m2 = new Male("4", sfd.parse("07/12/2025"),SheepStatus.ABATIDO, ConditionSheep.RECRIA,(double) 15, batch2);
 
         sheepRepository.saveAll(Arrays.asList(f1, f2, m1, m2));
 

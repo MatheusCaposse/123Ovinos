@@ -1,5 +1,6 @@
 package com.ovinos.service;
 
+import com.ovinos.entity.Enum.SheepStatus;
 import com.ovinos.entity.superClass.Sheep;
 import com.ovinos.repository.SheepRepository;
 import com.ovinos.service.exception.SheepException;
