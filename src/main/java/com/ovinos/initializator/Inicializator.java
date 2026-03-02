@@ -44,7 +44,7 @@ public class Inicializator implements CommandLineRunner {
         batchRepository.saveAll(Arrays.asList(batch1, batch2));
 
         Female f1 = new Female("1", sfd.parse("02/01/2026"),SheepStatus.VIVO, ConditionSheep.MAMANDO, RaceSheep.ILLE_DE_FRANCE,(double) 10, batch1);
-        Male m1 = new Male("2", sfd.parse("27/12/2025"), SheepStatus.DOADO, ConditionSheep.PARIDA,RaceSheep.ILLE_DE_FRANCE,(double) 16, batch1);
+        Male m1 = new Male("2", sfd.parse("27/12/2025"), SheepStatus.DOADO, ConditionSheep.CONFINAMENTO,RaceSheep.ILLE_DE_FRANCE,(double) 16, batch1);
         Female f2 = new Female("3", sfd.parse("12/02/2026"), SheepStatus.DESCONHECIDO, ConditionSheep.COBERTA,RaceSheep.TEXEL,(double) 10, batch1);
 
         Male m2 = new Male("4", sfd.parse("07/12/2025"),SheepStatus.ABATIDO, ConditionSheep.RECRIA,RaceSheep.EAST_FRIESIAN,(double) 15, batch2);

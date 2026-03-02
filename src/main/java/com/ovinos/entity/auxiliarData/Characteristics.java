@@ -61,7 +61,7 @@ public class Characteristics {
         if (!conditionSheep.canBe(this.sex)) {
             throw new SheepException("Status inválido para o sexo informado");
         }
-        this.status = status;
+        this.conditionSheep = conditionSheep;
     }
 
     public RaceSheep getRaceSheep() {
