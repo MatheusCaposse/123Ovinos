@@ -9,6 +9,7 @@ import com.ovinos.entity.Enum.ConditionSheep;
 import com.ovinos.entity.Enum.RaceSheep;
 import com.ovinos.entity.Enum.SheepSex;
 import com.ovinos.entity.Enum.SheepStatus;
+import com.ovinos.entity.data.Characteristics;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -17,11 +18,8 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonPropertyOrder({
         "id",
-        "sex",
-        "raceSheep",
+        "characteristics",
         "peso",
-        "status",
-        "conditionSheep",
         "dataNascimento",
         "batch"
 })
@@ -31,25 +29,16 @@ public abstract class Sheep {
     @Id
     private String id;
 
-    private String vid;
-    private String eid;
+    //private String vid;
+    //private String eid;
 
-    private Date dateInclusao;
+    //private Date dateInclusao;
 
     private Date dataNascimento;
     private Double peso;
 
-    @Enumerated(EnumType.STRING)
-    private SheepSex sex;
-
-    @Enumerated(EnumType.STRING)
-    private SheepStatus status;
-
-    @Enumerated(EnumType.STRING)
-    private ConditionSheep conditionSheep;
-
-    @Enumerated(EnumType.STRING)
-    private RaceSheep raceSheep;
+    @Embedded
+    private Characteristics characteristics = new Characteristics();
 
     @ManyToOne
     @JoinColumn(name = "batch_id")
@@ -62,29 +51,21 @@ public abstract class Sheep {
         this.dataNascimento = dataNascimento;
         this.peso = (Double) peso;
         this.batch = batch;
-        this.status = status;
-        this.conditionSheep = conditionSheep;
-        this.raceSheep = raceSheep;
+        characteristics.setStatus(status);
+        characteristics.setConditionSheep(conditionSheep);
+        characteristics.setRaceSheep(raceSheep);
 
         if (batch != null){
             batch.addSheep(this);
         }
     }
 
-    public SheepStatus getStatus() {
-        return status;
+    public Characteristics getCharacteristics() {
+        return characteristics;
     }
 
-    public void setStatus(SheepStatus status) {
-        this.status = status;
-    }
-
-    public SheepSex getSex() {
-        return sex;
-    }
-
-    public void setSex(SheepSex sex) {
-        this.sex = sex;
+    public void setCharacteristics(Characteristics characteristics) {
+        this.characteristics = characteristics;
     }
 
     public Double getPeso() {
@@ -113,22 +94,6 @@ public abstract class Sheep {
 
     public void setBatch(Batch batch) {
         this.batch = batch;
-    }
-
-    public ConditionSheep getConditionSheep() {
-        return conditionSheep;
-    }
-
-    public void setConditionSheep(ConditionSheep conditionSheep) {
-        this.conditionSheep = conditionSheep;
-    }
-
-    public RaceSheep getRaceSheep() {
-        return raceSheep;
-    }
-
-    public void setRaceSheep(RaceSheep raceSheep) {
-        this.raceSheep = raceSheep;
     }
 
 

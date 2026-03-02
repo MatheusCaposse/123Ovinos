@@ -47,11 +47,11 @@ public class Deads {
         this.id = sheep.getId();
         this.dataNascimento = sheep.getDataNascimento();
         this.peso = sheep.getPeso();
-        this.sex = sheep.getSex();
-        this.lastStatus = sheep.getStatus();
+        this.sex = sheep.getCharacteristics().getSex();
+        this.lastStatus = sheep.getCharacteristics().getStatus();
         this.batch = sheep.getBatch();
-        this.lastConditional = sheep.getConditionSheep();
-        this.raceSheep = sheep.getRaceSheep();
+        this.lastConditional = sheep.getCharacteristics().getConditionSheep();
+        this.raceSheep = sheep.getCharacteristics().getRaceSheep();
     }
 
     public String getId() {

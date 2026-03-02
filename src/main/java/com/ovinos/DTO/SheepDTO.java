@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.ovinos.entity.Batch;
 import com.ovinos.entity.Enum.SheepSex;
 import com.ovinos.entity.Enum.SheepStatus;
+import com.ovinos.entity.data.Characteristics;
 import com.ovinos.entity.superClass.Sheep;
 import jakarta.persistence.*;
 
@@ -11,8 +12,10 @@ import java.util.Date;
 @JsonPropertyOrder({
         "id",
         "sex",
+        "raceSheep",
         "peso",
         "status",
+        "conditionSheep",
         "dataNascimento"
 })
 public class SheepDTO {
@@ -22,11 +25,7 @@ public class SheepDTO {
     private Date dataNascimento;
     private Double peso;
 
-    @Enumerated(EnumType.STRING)
-    private SheepSex sex;
-
-    @Enumerated(EnumType.STRING)
-    private SheepStatus status;
+    private Characteristics characteristics;
 
     public SheepDTO(){}
 
@@ -34,24 +33,15 @@ public class SheepDTO {
         this.id = sheep.getId();
         this.dataNascimento = sheep.getDataNascimento();
         this.peso = sheep.getPeso();
-        this.sex = sheep.getSex();
-        this.status = sheep.getStatus();
+        this.characteristics = sheep.getCharacteristics();
     }
 
-    public SheepStatus getStatus() {
-        return status;
+    public Characteristics getCharacteristics() {
+        return characteristics;
     }
 
-    public void setStatus(SheepStatus status) {
-        this.status = status;
-    }
-
-    public SheepSex getSex() {
-        return sex;
-    }
-
-    public void setSex(SheepSex sex) {
-        this.sex = sex;
+    public void setCharacteristics(Characteristics characteristics) {
+        this.characteristics = characteristics;
     }
 
     public Double getPeso() {
