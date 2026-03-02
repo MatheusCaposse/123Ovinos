@@ -16,7 +16,6 @@ public class Male extends Sheep {
     public Male(){}
 
     public Male(String id, Date dataNascimento, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep, Double peso, Batch batch) {
-        super(id, dataNascimento,status, conditionSheep , raceSheep,peso, batch);
-        getCharacteristics().setSex(SheepSex.MACHO);
+        super(id, SheepSex.MACHO,dataNascimento,status, conditionSheep , raceSheep,peso, batch);
     }
 }

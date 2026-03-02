@@ -7,6 +7,7 @@ import com.ovinos.DTO.BatchDTO;
 import com.ovinos.entity.Batch;
 import com.ovinos.entity.Enum.ConditionSheep;
 import com.ovinos.entity.Enum.RaceSheep;
+import com.ovinos.entity.Enum.SheepSex;
 import com.ovinos.entity.Enum.SheepStatus;
 import com.ovinos.entity.auxiliarData.Characteristics;
 import com.ovinos.entity.auxiliarData.Weight;
@@ -48,12 +49,13 @@ public abstract class Sheep {
 
     public Sheep(){}
 
-    public Sheep(String id, Date dataNascimento, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep,Double peso, Batch batch) {
+    public Sheep(String id, SheepSex sex, Date dataNascimento, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep, Double peso, Batch batch) {
+
         this.id = id;
         this.dataNascimento = dataNascimento;
         this.weight = new Weight(peso, 7.0);
         this.batch = batch;
-        this.characteristics = new Characteristics(status, conditionSheep, raceSheep);
+        this.characteristics = new Characteristics(sex, status, conditionSheep, raceSheep);
 
         if (batch != null){
             batch.addSheep(this);

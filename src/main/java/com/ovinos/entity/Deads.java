@@ -2,14 +2,11 @@ package com.ovinos.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.ovinos.DTO.SheepDTO;
 import com.ovinos.entity.Enum.*;
 import com.ovinos.entity.superClass.Sheep;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @JsonPropertyOrder({

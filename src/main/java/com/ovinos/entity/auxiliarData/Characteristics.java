@@ -1,14 +1,19 @@
 package com.ovinos.entity.auxiliarData;
 
-import com.ovinos.entity.Enum.ConditionSheep;
-import com.ovinos.entity.Enum.RaceSheep;
-import com.ovinos.entity.Enum.SheepSex;
-import com.ovinos.entity.Enum.SheepStatus;
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.ovinos.entity.Enum.*;
+import com.ovinos.service.exception.SheepException;
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
 @Embeddable
+@JsonPropertyOrder({
+        "sex",
+        "raceSheep",
+        "condiitonSheep",
+        "status"
+})
 public class Characteristics {
 
     @Enumerated(EnumType.STRING)
@@ -23,11 +28,12 @@ public class Characteristics {
     @Enumerated(EnumType.STRING)
     private RaceSheep raceSheep;
 
-    public Characteristics (){}
+    public Characteristics(){}
 
-    public Characteristics(SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep) {
+    public Characteristics(SheepSex sex, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep) {
+        this.sex = sex;
         this.status = status;
-        this.conditionSheep = conditionSheep;
+        setConditionSheep(conditionSheep);
         this.raceSheep = raceSheep;
     }
 
@@ -52,7 +58,10 @@ public class Characteristics {
     }
 
     public void setConditionSheep(ConditionSheep conditionSheep) {
-        this.conditionSheep = conditionSheep;
+        if (!conditionSheep.canBe(this.sex)) {
+            throw new SheepException("Status inválido para o sexo informado");
+        }
+        this.status = status;
     }
 
     public RaceSheep getRaceSheep() {

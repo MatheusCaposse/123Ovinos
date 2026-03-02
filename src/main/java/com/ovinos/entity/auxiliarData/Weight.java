@@ -1,5 +1,6 @@
 package com.ovinos.entity.auxiliarData;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Embeddable;
 
 import java.time.LocalDate;
@@ -37,6 +38,7 @@ public class Weight {
         this.currentWeight = currentWeight;
     }
 
+    @JsonIgnore
     public Double getLastWeight() {
         return lastWeight;
     }
@@ -45,7 +47,7 @@ public class Weight {
         this.lastWeight = lastWeight;
     }
 
-    public Double getGMC(){
+    public Double getGMD(){
         if (currentWeight == null || lastWeight == null
                 || currentWeighing == null || lastWeighing == null) {
             return null;
@@ -54,7 +56,7 @@ public class Weight {
         long days = ChronoUnit.DAYS.between(lastWeighing, currentWeighing);
 
         if (days <= 0) {
-            return 0.0; // ou lançar exceção
+            return 0.0;
         }
 
         double weightDifference = currentWeight - lastWeight;
