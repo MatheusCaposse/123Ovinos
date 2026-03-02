@@ -1,4 +1,4 @@
-package com.ovinos.entity.data;
+package com.ovinos.entity.auxiliarData;
 
 import com.ovinos.entity.Enum.ConditionSheep;
 import com.ovinos.entity.Enum.RaceSheep;
@@ -25,8 +25,7 @@ public class Characteristics {
 
     public Characteristics (){}
 
-    public Characteristics(SheepSex sex, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep) {
-        this.sex = sex;
+    public Characteristics(SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep) {
         this.status = status;
         this.conditionSheep = conditionSheep;
         this.raceSheep = raceSheep;

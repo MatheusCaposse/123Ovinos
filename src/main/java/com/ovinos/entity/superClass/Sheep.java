@@ -7,9 +7,9 @@ import com.ovinos.DTO.BatchDTO;
 import com.ovinos.entity.Batch;
 import com.ovinos.entity.Enum.ConditionSheep;
 import com.ovinos.entity.Enum.RaceSheep;
-import com.ovinos.entity.Enum.SheepSex;
 import com.ovinos.entity.Enum.SheepStatus;
-import com.ovinos.entity.data.Characteristics;
+import com.ovinos.entity.auxiliarData.Characteristics;
+import com.ovinos.entity.auxiliarData.Weight;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -19,7 +19,7 @@ import java.util.Date;
 @JsonPropertyOrder({
         "id",
         "characteristics",
-        "peso",
+        "weight",
         "dataNascimento",
         "batch"
 })
@@ -35,10 +35,12 @@ public abstract class Sheep {
     //private Date dateInclusao;
 
     private Date dataNascimento;
-    private Double peso;
 
     @Embedded
-    private Characteristics characteristics = new Characteristics();
+    private Weight weight;
+
+    @Embedded
+    private Characteristics characteristics;
 
     @ManyToOne
     @JoinColumn(name = "batch_id")
@@ -49,11 +51,9 @@ public abstract class Sheep {
     public Sheep(String id, Date dataNascimento, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep,Double peso, Batch batch) {
         this.id = id;
         this.dataNascimento = dataNascimento;
-        this.peso = (Double) peso;
+        this.weight = new Weight(peso, 7.0);
         this.batch = batch;
-        characteristics.setStatus(status);
-        characteristics.setConditionSheep(conditionSheep);
-        characteristics.setRaceSheep(raceSheep);
+        this.characteristics = new Characteristics(status, conditionSheep, raceSheep);
 
         if (batch != null){
             batch.addSheep(this);
@@ -68,12 +68,12 @@ public abstract class Sheep {
         this.characteristics = characteristics;
     }
 
-    public Double getPeso() {
-        return peso;
+    public Weight getWeight() {
+        return weight;
     }
 
-    public void setPeso(Double peso) {
-        this.peso = peso;
+    public void setWeight(Weight weight) {
+        this.weight = weight;
     }
 
     public Date getDataNascimento() {

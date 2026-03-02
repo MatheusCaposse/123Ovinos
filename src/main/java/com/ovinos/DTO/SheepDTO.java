@@ -1,21 +1,14 @@
 package com.ovinos.DTO;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.ovinos.entity.Batch;
-import com.ovinos.entity.Enum.SheepSex;
-import com.ovinos.entity.Enum.SheepStatus;
-import com.ovinos.entity.data.Characteristics;
+import com.ovinos.entity.auxiliarData.Characteristics;
 import com.ovinos.entity.superClass.Sheep;
-import jakarta.persistence.*;
 
 import java.util.Date;
 @JsonPropertyOrder({
         "id",
-        "sex",
-        "raceSheep",
+        "characteristics",
         "peso",
-        "status",
-        "conditionSheep",
         "dataNascimento"
 })
 public class SheepDTO {
@@ -32,7 +25,7 @@ public class SheepDTO {
     public SheepDTO(Sheep sheep) {
         this.id = sheep.getId();
         this.dataNascimento = sheep.getDataNascimento();
-        this.peso = sheep.getPeso();
+        this.peso = sheep.getWeight().getCurrentWeight();
         this.characteristics = sheep.getCharacteristics();
     }
 

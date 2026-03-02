@@ -46,7 +46,7 @@ public class Deads {
     public Deads(Sheep sheep) {
         this.id = sheep.getId();
         this.dataNascimento = sheep.getDataNascimento();
-        this.peso = sheep.getPeso();
+        this.peso = sheep.getWeight().getCurrentWeight();
         this.sex = sheep.getCharacteristics().getSex();
         this.lastStatus = sheep.getCharacteristics().getStatus();
         this.batch = sheep.getBatch();
