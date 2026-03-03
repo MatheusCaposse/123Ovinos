@@ -127,6 +127,10 @@ public abstract class Sheep {
         this.treatment = new Treatment(desc, medic, dosagem, new Date());
     }
 
+    public void setTreatmentCompleted(Treatment treatment) {
+        this.treatment = null;
+    }
+
     @JsonIgnore
     public Batch getBatch() {
         return batch;

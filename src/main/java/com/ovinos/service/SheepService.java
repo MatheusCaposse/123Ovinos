@@ -43,4 +43,12 @@ public class SheepService {
 
         repository.save(sheep);
     }
+
+    public void treatmentCompleted(String id){
+        Sheep sheep = repository.findById(id).orElseThrow(()-> new SheepException("Sheep not found"));
+
+        sheep.setTreatmentCompleted(null);
+
+        repository.save(sheep);
+    }
 }

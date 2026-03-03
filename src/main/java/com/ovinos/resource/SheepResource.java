@@ -55,4 +55,10 @@ public class SheepResource {
 
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping(value = "/{id}/treatmentCompleted")
+    public ResponseEntity<Void> treatmentCompleted (@PathVariable String id){
+        service.treatmentCompleted(id);
+        return ResponseEntity.noContent().build();
+    }
 }
