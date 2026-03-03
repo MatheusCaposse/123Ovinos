@@ -10,6 +10,7 @@ import com.ovinos.entity.Enum.RaceSheep;
 import com.ovinos.entity.Enum.SheepSex;
 import com.ovinos.entity.Enum.SheepStatus;
 import com.ovinos.entity.auxiliarData.Characteristics;
+import com.ovinos.entity.auxiliarData.Treatment;
 import com.ovinos.entity.auxiliarData.Weight;
 import jakarta.persistence.*;
 
@@ -43,11 +44,19 @@ public abstract class Sheep {
     @Embedded
     private Characteristics characteristics;
 
+    @Embedded
+    private Treatment treatment;
+
     @ManyToOne
     @JoinColumn(name = "batch_id")
     private Batch batch;
 
     public Sheep(){}
+
+    public Sheep(String id, Date dataNascimento){
+        this.id = id;
+        this.dataNascimento = dataNascimento;
+    }
 
     public Sheep(String id, SheepSex sex, Date dataNascimento, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep, Double peso, Batch batch) {
 
@@ -98,6 +107,13 @@ public abstract class Sheep {
         this.batch = batch;
     }
 
+    public Treatment getTreatment() {
+        return treatment;
+    }
+
+    public void setTreatment(String desc, String medic, String dosagem) {
+        this.treatment = new Treatment(desc, medic, dosagem, new Date());
+    }
 
     @JsonIgnore
     public Batch getBatch() {

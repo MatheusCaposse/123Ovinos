@@ -1,16 +1,15 @@
 package com.ovinos.resource;
 
+import com.ovinos.DTO.TreatmentDTO;
 import com.ovinos.entity.Enum.ConditionSheep;
 import com.ovinos.entity.Enum.SheepSex;
 import com.ovinos.entity.Enum.SheepStatus;
+import com.ovinos.entity.auxiliarData.Treatment;
 import com.ovinos.entity.superClass.Sheep;
 import com.ovinos.service.SheepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -39,5 +38,13 @@ public class SheepResource {
         return Arrays.stream(ConditionSheep.values())
                 .filter(status -> status.canBe(sex))
                 .toList();
+    }
+
+    @PostMapping(value = "/{id}/treatments")
+    public ResponseEntity<Void> addTreatment(@PathVariable String id, @RequestBody TreatmentDTO treatment){
+
+        service.addTreatment(id, treatment);
+
+        return ResponseEntity.noContent().build();
     }
 }
