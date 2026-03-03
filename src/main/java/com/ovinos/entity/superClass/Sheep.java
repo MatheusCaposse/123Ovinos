@@ -76,7 +76,6 @@ public abstract class Sheep {
         this.dataNascimento = dataNascimento;
         this.weight = new Weight(peso, 7.0);
         this.batch = batch;
-        this.characteristics = new Characteristics(sex, status, conditionSheep, raceSheep);
 
         if (batch != null){
             batch.addSheep(this);
@@ -87,7 +86,7 @@ public abstract class Sheep {
         return characteristics;
     }
 
-    public void setCharacteristics(SheepSex sex, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep) {
+    public void setCharacteristics( SheepSex sex, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep) {
         this.characteristics = new Characteristics(sex,status, conditionSheep, raceSheep);
     }
 
