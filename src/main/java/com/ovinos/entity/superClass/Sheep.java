@@ -58,7 +58,7 @@ public abstract class Sheep {
         this.dataNascimento = dataNascimento;
     }
 
-    public Sheep(String id, SheepSex sex, Date dataNascimento, Double peso, Batch batch) {
+    public Sheep(String id,  SheepSex sex,Date dataNascimento, Double peso, Batch batch) {
 
         this.id = id;
         this.dataNascimento = dataNascimento;
@@ -76,6 +76,7 @@ public abstract class Sheep {
         this.dataNascimento = dataNascimento;
         this.weight = new Weight(peso, 7.0);
         this.batch = batch;
+        this.characteristics = new Characteristics(sex, status, conditionSheep, raceSheep);
 
         if (batch != null){
             batch.addSheep(this);

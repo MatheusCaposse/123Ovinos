@@ -18,4 +18,8 @@ public class Female extends Sheep {
     public Female(String id,Date dataNascimento, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep, Double peso, Batch batch) {
         super(id, SheepSex.FEMEA,dataNascimento,status, conditionSheep , raceSheep,peso, batch);
     }
+
+    public Female(String id,Date dataNascimento, Double peso, Batch batch) {
+        super(id, SheepSex.FEMEA,dataNascimento ,peso, batch);
+    }
 }
