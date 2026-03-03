@@ -58,6 +58,18 @@ public abstract class Sheep {
         this.dataNascimento = dataNascimento;
     }
 
+    public Sheep(String id, SheepSex sex, Date dataNascimento, Double peso, Batch batch) {
+
+        this.id = id;
+        this.dataNascimento = dataNascimento;
+        this.weight = new Weight(peso, 7.0);
+        this.batch = batch;
+
+        if (batch != null){
+            batch.addSheep(this);
+        }
+    }
+
     public Sheep(String id, SheepSex sex, Date dataNascimento, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep, Double peso, Batch batch) {
 
         this.id = id;
@@ -75,8 +87,8 @@ public abstract class Sheep {
         return characteristics;
     }
 
-    public void setCharacteristics(Characteristics characteristics) {
-        this.characteristics = characteristics;
+    public void setCharacteristics(SheepSex sex, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep) {
+        this.characteristics = new Characteristics(sex,status, conditionSheep, raceSheep);
     }
 
     public Weight getWeight() {

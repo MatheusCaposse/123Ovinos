@@ -1,5 +1,6 @@
 package com.ovinos.resource;
 
+import com.ovinos.DTO.CharacteristicsDTO;
 import com.ovinos.DTO.TreatmentDTO;
 import com.ovinos.entity.Enum.ConditionSheep;
 import com.ovinos.entity.Enum.SheepSex;
@@ -38,6 +39,13 @@ public class SheepResource {
         return Arrays.stream(ConditionSheep.values())
                 .filter(status -> status.canBe(sex))
                 .toList();
+    }
+
+    @PostMapping(value = "/{id}/characteristics")
+    public ResponseEntity<Void> addCharacteristics(@PathVariable String id, @RequestBody CharacteristicsDTO characteristicsDTO){
+        service.addCharacteristics(id, characteristicsDTO);
+
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping(value = "/{id}/treatments")

@@ -1,5 +1,6 @@
 package com.ovinos.service;
 
+import com.ovinos.DTO.CharacteristicsDTO;
 import com.ovinos.DTO.TreatmentDTO;
 import com.ovinos.entity.Enum.SheepStatus;
 import com.ovinos.entity.auxiliarData.Treatment;
@@ -25,6 +26,14 @@ public class SheepService {
     public Sheep findById(String id){
         Sheep obj = repository.findById(id).orElseThrow(() -> new SheepException("Sheep not found"));
         return obj;
+    }
+
+    public void addCharacteristics(String id, CharacteristicsDTO characteristicsDTO){
+        Sheep sheep = repository.findById(id).orElseThrow(() -> new SheepException("Sheep not found"));
+
+        sheep.setCharacteristics(characteristicsDTO.getSex(), characteristicsDTO.getStatus(), characteristicsDTO.getConditionSheep(), characteristicsDTO.getRaceSheep());
+
+        repository.save(sheep);
     }
 
     public void addTreatment(String id, TreatmentDTO treatmentDTO){
