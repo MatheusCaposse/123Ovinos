@@ -26,7 +26,7 @@ public class CharacteristicsDTO {
     public CharacteristicsDTO(SheepSex sex, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep) {
         this.sex = sex;
         this.status = status;
-        setConditionSheep(conditionSheep);
+        this.conditionSheep = conditionSheep;
         this.raceSheep = raceSheep;
     }
 
@@ -51,9 +51,6 @@ public class CharacteristicsDTO {
     }
 
     public void setConditionSheep(ConditionSheep conditionSheep) {
-        if (!conditionSheep.canBe(this.sex)) {
-            throw new SheepException("Status inválido para o sexo informado");
-        }
         this.conditionSheep = conditionSheep;
     }
 

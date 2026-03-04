@@ -12,6 +12,7 @@ import com.ovinos.entity.Enum.SheepStatus;
 import com.ovinos.entity.auxiliarData.Characteristics;
 import com.ovinos.entity.auxiliarData.Treatment;
 import com.ovinos.entity.auxiliarData.Weight;
+import com.ovinos.service.exception.SheepException;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -20,9 +21,10 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonPropertyOrder({
         "id",
+        "sex",
+        "dataNascimento",
         "characteristics",
         "weight",
-        "dataNascimento",
         "batch"
 })
 @DiscriminatorColumn(name = "sexo")
@@ -38,10 +40,14 @@ public abstract class Sheep {
 
     private Date dataNascimento;
 
+    @Enumerated(EnumType.STRING)
+    private SheepSex sex;
+
     @Embedded
     private Weight weight;
 
-    @Embedded
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "characteristics_id")
     private Characteristics characteristics;
 
     @Embedded
@@ -58,7 +64,7 @@ public abstract class Sheep {
         this.dataNascimento = dataNascimento;
     }
 
-    public Sheep(String id,  SheepSex sex,Date dataNascimento, Double peso, Batch batch) {
+    public Sheep(String id,Date dataNascimento, Double peso, Batch batch) {
 
         this.id = id;
         this.dataNascimento = dataNascimento;
@@ -76,7 +82,7 @@ public abstract class Sheep {
         this.dataNascimento = dataNascimento;
         this.weight = new Weight(peso, 7.0);
         this.batch = batch;
-        this.characteristics = new Characteristics(sex, status, conditionSheep, raceSheep);
+        this.characteristics = new Characteristics(status, conditionSheep, raceSheep);
 
         if (batch != null){
             batch.addSheep(this);
@@ -87,8 +93,12 @@ public abstract class Sheep {
         return characteristics;
     }
 
-    public void setCharacteristics( SheepSex sex, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep) {
-        this.characteristics = new Characteristics(sex,status, conditionSheep, raceSheep);
+    public void setCharacteristics( Characteristics characteristics) {
+        if (!characteristics.getConditionSheep().canBe(sex)) {
+            throw new SheepException("Condição inválida para o sexo informado");
+        }
+
+        this.characteristics = new Characteristics(characteristics.getStatus(), characteristics.getConditionSheep(), characteristics.getRaceSheep());
     }
 
     public Weight getWeight() {
@@ -129,6 +139,14 @@ public abstract class Sheep {
 
     public void setTreatmentCompleted(Treatment treatment) {
         this.treatment = null;
+    }
+
+    public SheepSex getSex() {
+        return sex;
+    }
+
+    public void setSex(SheepSex sex) {
+        this.sex = sex;
     }
 
     @JsonIgnore

@@ -5,11 +5,14 @@ import com.ovinos.DTO.PregnancyDTO;
 import com.ovinos.DTO.TreatmentDTO;
 import com.ovinos.entity.Enum.SheepStatus;
 import com.ovinos.entity.Female;
+import com.ovinos.entity.auxiliarData.Characteristics;
 import com.ovinos.entity.auxiliarData.Treatment;
 import com.ovinos.entity.superClass.Sheep;
+import com.ovinos.repository.CharacteristicsRepository;
 import com.ovinos.repository.FemaleRepository;
 import com.ovinos.repository.SheepRepository;
 import com.ovinos.service.exception.SheepException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,9 @@ public class SheepService {
     @Autowired
     private FemaleRepository femaleRepository;
 
+    @Autowired
+    private CharacteristicsRepository characteristicsRepository;
+
     public List<Sheep> findAll(){
         List<Sheep> list = repository.findAll();
         return list;
@@ -34,11 +40,13 @@ public class SheepService {
         return obj;
     }
 
+    @Transactional
     public void addCharacteristics(String id, CharacteristicsDTO characteristicsDTO){
         Sheep sheep = repository.findById(id).orElseThrow(() -> new SheepException("Sheep not found"));
 
-        sheep.setCharacteristics(characteristicsDTO.getSex(), characteristicsDTO.getStatus(), characteristicsDTO.getConditionSheep(), characteristicsDTO.getRaceSheep());
+        Characteristics characteristics = new Characteristics(characteristicsDTO.getStatus(), characteristicsDTO.getConditionSheep(), characteristicsDTO.getRaceSheep());
 
+        sheep.setCharacteristics(characteristics);
         repository.save(sheep);
     }
 

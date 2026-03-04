@@ -41,6 +41,7 @@ public class Deads {
         this.dataNascimento = sheep.getDataNascimento();
         this.peso = sheep.getWeight().getCurrentWeight();
         this.batch = sheep.getBatch();
+        this.sex = sheep.getSex();
 
     }
 

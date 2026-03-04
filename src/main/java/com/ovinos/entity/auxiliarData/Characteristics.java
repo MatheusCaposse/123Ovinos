@@ -1,23 +1,25 @@
 package com.ovinos.entity.auxiliarData;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.ovinos.entity.Enum.*;
+import com.ovinos.entity.superClass.Sheep;
 import com.ovinos.service.exception.SheepException;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 
-@Embeddable
+@Entity
 @JsonPropertyOrder({
-        "sex",
         "raceSheep",
         "condiitonSheep",
         "status"
 })
 public class Characteristics {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private SheepSex sex;
+    @OneToOne(mappedBy = "characteristics")
+    private Sheep sheep;
 
     @Enumerated(EnumType.STRING)
     private SheepStatus status;
@@ -30,19 +32,10 @@ public class Characteristics {
 
     public Characteristics(){}
 
-    public Characteristics(SheepSex sex, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep) {
-        this.sex = sex;
+    public Characteristics(SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep) {
         this.status = status;
-        setConditionSheep(conditionSheep);
         this.raceSheep = raceSheep;
-    }
-
-    public SheepSex getSex() {
-        return sex;
-    }
-
-    public void setSex(SheepSex sex) {
-        this.sex = sex;
+        this.conditionSheep = conditionSheep;
     }
 
     public SheepStatus getStatus() {
@@ -57,18 +50,25 @@ public class Characteristics {
         return conditionSheep;
     }
 
-    public void setConditionSheep(ConditionSheep conditionSheep) {
-        if (!conditionSheep.canBe(this.sex)) {
-            throw new SheepException("Status inválido para o sexo informado");
-        }
-        this.conditionSheep = conditionSheep;
-    }
-
     public RaceSheep getRaceSheep() {
         return raceSheep;
     }
 
     public void setRaceSheep(RaceSheep raceSheep) {
         this.raceSheep = raceSheep;
+    }
+
+    @JsonIgnore
+    public Long getId() {
+        return id;
+    }
+
+    @JsonIgnore
+    public Sheep getSheep() {
+        return sheep;
+    }
+
+    public void setSheep(Sheep sheep) {
+        this.sheep = sheep;
     }
 }

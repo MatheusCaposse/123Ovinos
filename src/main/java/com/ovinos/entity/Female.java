@@ -21,7 +21,8 @@ public class Female extends Sheep {
     }
 
     public Female(String id,Date dataNascimento, Double peso, Batch batch) {
-        super(id, SheepSex.FEMEA,dataNascimento ,peso, batch);
+        super(id,dataNascimento ,peso, batch);
+        this.setSex(SheepSex.FEMEA);
     }
 
     public Pregnancy getPregnancy() {
