@@ -38,7 +38,7 @@ public class Inicializator implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        if (sheepRepository.count()==0 && batchRepository.count()==0 && deadsRepository.count()==0){
+        if (sheepRepository.count()==0 && batchRepository.count()==0){
             Batch batch1 = new Batch("1", BatchType.CONFINAMENTO);
             Batch batch2 = new Batch("2", BatchType.RECRIA);
 

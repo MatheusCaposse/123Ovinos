@@ -33,10 +33,6 @@ public class Deads {
 
     @Enumerated(EnumType.STRING)
     private SheepStatus status = SheepStatus.MORTO;
-    @Enumerated(EnumType.STRING)
-    private ConditionSheep lastConditional;
-    @Enumerated(EnumType.STRING)
-    private RaceSheep raceSheep;
 
     public Deads(){}
 
@@ -44,11 +40,8 @@ public class Deads {
         this.id = sheep.getId();
         this.dataNascimento = sheep.getDataNascimento();
         this.peso = sheep.getWeight().getCurrentWeight();
-        this.sex = sheep.getCharacteristics().getSex();
-        this.lastStatus = sheep.getCharacteristics().getStatus();
         this.batch = sheep.getBatch();
-        this.lastConditional = sheep.getCharacteristics().getConditionSheep();
-        this.raceSheep = sheep.getCharacteristics().getRaceSheep();
+
     }
 
     public String getId() {
@@ -89,22 +82,6 @@ public class Deads {
 
     public void setStatus(SheepStatus status) {
         this.status = status;
-    }
-
-    public RaceSheep getRaceSheep() {
-        return raceSheep;
-    }
-
-    public void setRaceSheep(RaceSheep raceSheep) {
-        this.raceSheep = raceSheep;
-    }
-
-    public ConditionSheep getLastConditional() {
-        return lastConditional;
-    }
-
-    public void setLastConditional(ConditionSheep lastConditional) {
-        this.lastConditional = lastConditional;
     }
 
     @JsonIgnore
