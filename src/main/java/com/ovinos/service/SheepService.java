@@ -1,10 +1,13 @@
 package com.ovinos.service;
 
 import com.ovinos.DTO.CharacteristicsDTO;
+import com.ovinos.DTO.PregnancyDTO;
 import com.ovinos.DTO.TreatmentDTO;
 import com.ovinos.entity.Enum.SheepStatus;
+import com.ovinos.entity.Female;
 import com.ovinos.entity.auxiliarData.Treatment;
 import com.ovinos.entity.superClass.Sheep;
+import com.ovinos.repository.FemaleRepository;
 import com.ovinos.repository.SheepRepository;
 import com.ovinos.service.exception.SheepException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,9 @@ public class SheepService {
 
     @Autowired
     private SheepRepository repository;
+
+    @Autowired
+    private FemaleRepository femaleRepository;
 
     public List<Sheep> findAll(){
         List<Sheep> list = repository.findAll();
@@ -50,5 +56,13 @@ public class SheepService {
         sheep.setTreatmentCompleted(null);
 
         repository.save(sheep);
+    }
+
+    public void addPregnancy(String id, PregnancyDTO dto){
+        Female female = femaleRepository.findById(id).orElseThrow(() -> new SheepException("Female not found"));
+
+        female.setPregnancy(dto.getTypeBirth(), dto.getIdPai());
+
+        femaleRepository.save(female);
     }
 }

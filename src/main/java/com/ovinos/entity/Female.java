@@ -1,9 +1,7 @@
 package com.ovinos.entity;
 
-import com.ovinos.entity.Enum.ConditionSheep;
-import com.ovinos.entity.Enum.RaceSheep;
-import com.ovinos.entity.Enum.SheepSex;
-import com.ovinos.entity.Enum.SheepStatus;
+import com.ovinos.entity.Enum.*;
+import com.ovinos.entity.auxiliarData.Pregnancy;
 import com.ovinos.entity.superClass.Sheep;
 import jakarta.persistence.*;
 
@@ -13,6 +11,9 @@ import java.util.Date;
 @DiscriminatorValue("F")
 public class Female extends Sheep {
 
+    @Embedded
+    private Pregnancy pregnancy;
+
     public Female(){}
 
     public Female(String id,Date dataNascimento, SheepStatus status, ConditionSheep conditionSheep, RaceSheep raceSheep, Double peso, Batch batch) {
@@ -21,5 +22,13 @@ public class Female extends Sheep {
 
     public Female(String id,Date dataNascimento, Double peso, Batch batch) {
         super(id, SheepSex.FEMEA,dataNascimento ,peso, batch);
+    }
+
+    public Pregnancy getPregnancy() {
+        return pregnancy;
+    }
+
+    public void setPregnancy(TypeBirth typeBirth, String idPai) {
+        this.pregnancy = new Pregnancy(typeBirth, idPai);
     }
 }
