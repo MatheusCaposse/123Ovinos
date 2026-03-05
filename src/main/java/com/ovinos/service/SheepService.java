@@ -3,11 +3,12 @@ package com.ovinos.service;
 import com.ovinos.DTO.CharacteristicsDTO;
 import com.ovinos.DTO.PregnancyDTO;
 import com.ovinos.DTO.TreatmentDTO;
-import com.ovinos.entity.Enum.SheepStatus;
+import com.ovinos.DTO.WeightDTO;
 import com.ovinos.entity.Female;
 import com.ovinos.entity.auxiliarData.Characteristics;
 import com.ovinos.entity.auxiliarData.Pregnancy;
 import com.ovinos.entity.auxiliarData.Treatment;
+import com.ovinos.entity.auxiliarData.Weight;
 import com.ovinos.entity.superClass.Sheep;
 import com.ovinos.repository.*;
 import com.ovinos.service.exception.SheepException;
@@ -15,11 +16,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SheepService {
@@ -103,5 +101,23 @@ public class SheepService {
         female.setPregnancy(pregnancy);
 
         femaleRepository.save(female);
+    }
+
+    @Transactional
+    public void addWeight(String id, WeightDTO dto){
+        Sheep sheep = repository.findById(id).orElseThrow(()-> new SheepException("Sheep not found"));
+
+        if(sheep.getWeight()==null){
+            Weight weight = new Weight(dto.getCurrentWeight(), dto.getLastWeight(), dto.getCurrentWeighing(), dto.getFirstWeighing());
+            sheep.setWeight(weight);
+        } else {
+            Weight weight = sheep.getWeight();
+            weight.setCurrentWeight(dto.getCurrentWeight());
+            weight.setLastWeight(dto.getLastWeight());
+            weight.setCurrentWeighing(dto.getCurrentWeighing());
+            weight.setFirstWeighing(dto.getFirstWeighing());
+        }
+
+        repository.save(sheep);
     }
 }

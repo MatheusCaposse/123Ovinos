@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 @Entity
 public class Weight {
@@ -22,7 +21,7 @@ public class Weight {
     private Double lastWeight;
 
     private LocalDate currentWeighing = LocalDate.of(2026, 2, 20);
-    private LocalDate lastWeighing = LocalDate.of(2026, 2, 13);
+    private LocalDate firstWeighing = LocalDate.of(2026, 2, 13);
 
     public Weight(){}
 
@@ -33,7 +32,7 @@ public class Weight {
 
     public Weight(Double currentWeight, Double lastWeight, LocalDate currentWeighing, LocalDate lastWeighing) {
         this.currentWeighing = currentWeighing;
-        this.lastWeighing = lastWeighing;
+        this.firstWeighing = lastWeighing;
         this.currentWeight = currentWeight;
         this.lastWeight = lastWeight;
     }
@@ -57,11 +56,11 @@ public class Weight {
 
     public Double getGMD(){
         if (currentWeight == null || lastWeight == null
-                || currentWeighing == null || lastWeighing == null) {
+                || currentWeighing == null || firstWeighing == null) {
             return null;
         }
 
-        long days = ChronoUnit.DAYS.between(lastWeighing, currentWeighing);
+        long days = ChronoUnit.DAYS.between(firstWeighing, currentWeighing);
 
         if (days <= 0) {
             return 0.0;
@@ -100,12 +99,12 @@ public class Weight {
     }
 
     @JsonIgnore
-    public LocalDate getLastWeighing() {
-        return lastWeighing;
+    public LocalDate getFirstWeighing() {
+        return firstWeighing;
     }
 
-    public void setLastWeighing(LocalDate lastWeighing) {
-        this.lastWeighing = lastWeighing;
+    public void setFirstWeighing(LocalDate firstWeighing) {
+        this.firstWeighing = firstWeighing;
     }
 
 }
