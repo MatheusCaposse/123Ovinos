@@ -9,10 +9,7 @@ import com.ovinos.entity.auxiliarData.Characteristics;
 import com.ovinos.entity.auxiliarData.Pregnancy;
 import com.ovinos.entity.auxiliarData.Treatment;
 import com.ovinos.entity.superClass.Sheep;
-import com.ovinos.repository.CharacteristicsRepository;
-import com.ovinos.repository.FemaleRepository;
-import com.ovinos.repository.SheepRepository;
-import com.ovinos.repository.TreatmentRepository;
+import com.ovinos.repository.*;
 import com.ovinos.service.exception.SheepException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +37,9 @@ public class SheepService {
 
     @Autowired
     private TreatmentRepository treatmentRepository;
+
+    @Autowired
+    private WeightRepository weightRepository;
 
     public List<Sheep> findAll(){
         List<Sheep> list = repository.findAll();

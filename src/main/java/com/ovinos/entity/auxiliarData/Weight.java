@@ -1,14 +1,22 @@
 package com.ovinos.entity.auxiliarData;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Embeddable;
+import com.ovinos.entity.superClass.Sheep;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-@Embeddable
+@Entity
 public class Weight {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToOne(mappedBy = "weight")
+    private Sheep sheep;
 
     private Double currentWeight;
     private Double lastWeight;
@@ -63,4 +71,41 @@ public class Weight {
 
         return Math.round((weightDifference / days) * 1000.0) / 1000.0;
     }
+
+    @JsonIgnore
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @JsonIgnore
+    public Sheep getSheep() {
+        return sheep;
+    }
+
+    public void setSheep(Sheep sheep) {
+        this.sheep = sheep;
+    }
+
+
+    public LocalDate getCurrentWeighing() {
+        return currentWeighing;
+    }
+
+    public void setCurrentWeighing(LocalDate currentWeighing) {
+        this.currentWeighing = currentWeighing;
+    }
+
+    @JsonIgnore
+    public LocalDate getLastWeighing() {
+        return lastWeighing;
+    }
+
+    public void setLastWeighing(LocalDate lastWeighing) {
+        this.lastWeighing = lastWeighing;
+    }
+
 }

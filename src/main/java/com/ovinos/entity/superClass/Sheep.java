@@ -43,7 +43,8 @@ public abstract class Sheep {
     @Enumerated(EnumType.STRING)
     private SheepSex sex;
 
-    @Embedded
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "weight_id")
     private Weight weight;
 
     @OneToOne(cascade = CascadeType.ALL)
