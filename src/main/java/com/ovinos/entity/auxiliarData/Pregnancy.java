@@ -1,14 +1,22 @@
 package com.ovinos.entity.auxiliarData;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ovinos.entity.Enum.TypeBirth;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import com.ovinos.entity.Female;
+import com.ovinos.entity.superClass.Sheep;
+import jakarta.persistence.*;
 
 import java.lang.reflect.Type;
 
-@Embeddable
+@Entity
 public class Pregnancy {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToOne(mappedBy = "pregnancy")
+    private Female female;
 
     @Enumerated(EnumType.STRING)
     private TypeBirth typeBirth;
@@ -36,5 +44,15 @@ public class Pregnancy {
 
     public void setIdPai(String idPai) {
         this.idPai = idPai;
+    }
+
+    @JsonIgnore
+    public Long getId() {
+        return id;
+    }
+
+    @JsonIgnore
+    public Female getFemale() {
+        return female;
     }
 }

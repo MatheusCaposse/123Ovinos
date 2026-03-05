@@ -11,7 +11,8 @@ import java.util.Date;
 @DiscriminatorValue("F")
 public class Female extends Sheep {
 
-    @Embedded
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pregnancy_id")
     private Pregnancy pregnancy;
 
     public Female(){}
@@ -29,7 +30,7 @@ public class Female extends Sheep {
         return pregnancy;
     }
 
-    public void setPregnancy(TypeBirth typeBirth, String idPai) {
-        this.pregnancy = new Pregnancy(typeBirth, idPai);
+    public void setPregnancy(Pregnancy pregnancy) {
+        this.pregnancy = pregnancy;
     }
 }

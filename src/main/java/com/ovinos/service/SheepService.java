@@ -6,6 +6,7 @@ import com.ovinos.DTO.TreatmentDTO;
 import com.ovinos.entity.Enum.SheepStatus;
 import com.ovinos.entity.Female;
 import com.ovinos.entity.auxiliarData.Characteristics;
+import com.ovinos.entity.auxiliarData.Pregnancy;
 import com.ovinos.entity.auxiliarData.Treatment;
 import com.ovinos.entity.superClass.Sheep;
 import com.ovinos.repository.CharacteristicsRepository;
@@ -66,10 +67,13 @@ public class SheepService {
         repository.save(sheep);
     }
 
+    @Transactional
     public void addPregnancy(String id, PregnancyDTO dto){
         Female female = femaleRepository.findById(id).orElseThrow(() -> new SheepException("Female not found"));
 
-        female.setPregnancy(dto.getTypeBirth(), dto.getIdPai());
+        Pregnancy pregnancy = new Pregnancy(dto.getTypeBirth(), dto.getIdPai());
+
+        female.setPregnancy(pregnancy);
 
         femaleRepository.save(female);
     }
