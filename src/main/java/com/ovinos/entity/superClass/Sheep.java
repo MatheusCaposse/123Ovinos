@@ -50,7 +50,8 @@ public abstract class Sheep {
     @JoinColumn(name = "characteristics_id")
     private Characteristics characteristics;
 
-    @Embedded
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "treatment_id")
     private Treatment treatment;
 
     @ManyToOne
@@ -125,18 +126,6 @@ public abstract class Sheep {
         this.id = id;
     }
 
-    public void setBatch(Batch batch) {
-        this.batch = batch;
-    }
-
-    public Treatment getTreatment() {
-        return treatment;
-    }
-
-    public void setTreatment(String desc, String medic, String dosagem) {
-        this.treatment = new Treatment(desc, medic, dosagem, new Date());
-    }
-
     public void setTreatmentCompleted(Treatment treatment) {
         this.treatment = null;
     }
@@ -149,9 +138,21 @@ public abstract class Sheep {
         this.sex = sex;
     }
 
+    public Treatment getTreatment() {
+        return treatment;
+    }
+
+    public void setTreatment(Treatment treatment) {
+        this.treatment = treatment;
+    }
+
     @JsonIgnore
     public Batch getBatch() {
         return batch;
+    }
+
+    public void setBatch(Batch batch) {
+        this.batch = batch;
     }
 
     @JsonProperty("batch")

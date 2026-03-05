@@ -1,11 +1,20 @@
 package com.ovinos.entity.auxiliarData;
 
-import jakarta.persistence.Embeddable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ovinos.entity.superClass.Sheep;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
-@Embeddable
+@Entity
 public class Treatment {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToOne(mappedBy = "treatment")
+    private Sheep sheep;
 
     private String descricao;
 
@@ -54,6 +63,20 @@ public class Treatment {
 
     public void setDataAplicacao(Date dataAplicacao) {
         this.dataAplicacao = dataAplicacao;
+    }
+
+    @JsonIgnore
+    public Long getId() {
+        return id;
+    }
+
+    @JsonIgnore
+    public Sheep getSheep() {
+        return sheep;
+    }
+
+    public void setSheep(Sheep sheep) {
+        this.sheep = sheep;
     }
 }
 

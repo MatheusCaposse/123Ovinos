@@ -1,6 +1,7 @@
 package com.ovinos.entity.auxiliarData;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.ovinos.entity.Enum.TypeBirth;
 import com.ovinos.entity.Female;
 import com.ovinos.entity.superClass.Sheep;
@@ -9,6 +10,10 @@ import jakarta.persistence.*;
 import java.lang.reflect.Type;
 
 @Entity
+@JsonPropertyOrder({
+        "typeBirth",
+        "idPai"
+})
 public class Pregnancy {
 
     @Id
