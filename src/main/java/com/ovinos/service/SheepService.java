@@ -84,11 +84,13 @@ public class SheepService {
         repository.save(sheep);
     }
 
+    @Transactional
     public void treatmentCompleted(String id){
         Sheep sheep = repository.findById(id).orElseThrow(()-> new SheepException("Sheep not found"));
+        Treatment treatment = treatmentRepository.findById(sheep.getTreatment().getId()).orElseThrow(()-> new SheepException("Treatment not found"));
+        treatmentRepository.delete(treatment);
 
         sheep.setTreatmentCompleted(null);
-
         repository.save(sheep);
     }
 
