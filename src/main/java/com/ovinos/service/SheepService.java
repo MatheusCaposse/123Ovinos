@@ -33,6 +33,9 @@ public class SheepService {
     @Autowired
     private WeightRepository weightRepository;
 
+    @Autowired
+    private AcitivityRepository acitivityRepository;
+
     public List<Sheep> findAll(){
         List<Sheep> list = repository.findAll();
         return list;
@@ -145,5 +148,18 @@ public class SheepService {
         }
 
         repository.save(sheep);
+    }
+
+    public void activityCompleted(String id) {
+        Sheep sheep = repository.findById(id).orElseThrow(()-> new SheepException("Sheep not found"));
+        if (sheep.getActivity()==null){
+            throw new SheepException("This sheep dont have any activity");
+        }
+        else{
+            Activity activity = acitivityRepository.findById(sheep.getActivity().getId()).orElseThrow(()-> new SheepException("Activity not found"));
+            sheep.setActivity(null);
+            repository.save(sheep);
+            acitivityRepository.delete(activity);
+        }
     }
 }

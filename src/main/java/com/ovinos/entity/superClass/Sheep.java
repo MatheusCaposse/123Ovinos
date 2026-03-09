@@ -20,11 +20,12 @@ import java.util.Date;
 @JsonPropertyOrder({
         "id",
         "sex",
-        "dataNascimento",
         "characteristics",
-        "batch",
+        "dataNascimento",
         "weight",
-        "notes"
+        "batch",
+        "notes",
+        "activity"
 
 })
 @DiscriminatorColumn(name = "sexo")
