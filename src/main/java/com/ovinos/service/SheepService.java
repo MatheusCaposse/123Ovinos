@@ -1,14 +1,8 @@
 package com.ovinos.service;
 
-import com.ovinos.DTO.CharacteristicsDTO;
-import com.ovinos.DTO.PregnancyDTO;
-import com.ovinos.DTO.TreatmentDTO;
-import com.ovinos.DTO.WeightDTO;
+import com.ovinos.DTO.*;
 import com.ovinos.entity.Female;
-import com.ovinos.entity.auxiliarData.Characteristics;
-import com.ovinos.entity.auxiliarData.Pregnancy;
-import com.ovinos.entity.auxiliarData.Treatment;
-import com.ovinos.entity.auxiliarData.Weight;
+import com.ovinos.entity.auxiliarData.*;
 import com.ovinos.entity.superClass.Sheep;
 import com.ovinos.repository.*;
 import com.ovinos.service.exception.SheepException;
@@ -116,6 +110,22 @@ public class SheepService {
             weight.setLastWeight(dto.getLastWeight());
             weight.setCurrentWeighing(dto.getCurrentWeighing());
             weight.setFirstWeighing(dto.getFirstWeighing());
+        }
+
+        repository.save(sheep);
+    }
+
+    @Transactional
+    public void addNote(String id, NotesDTO dto){
+        Sheep sheep = repository.findById(id).orElseThrow(()-> new SheepException("Sheep not found"));
+
+        if (sheep.getNotes()==null){
+            Notes notes = new Notes(dto.getNote(), dto.getAlert());
+            sheep.setNotes(notes);
+        } else {
+            Notes notes = sheep.getNotes();
+            notes.setNote(dto.getNote());
+            notes.setAlert(dto.getAlert());
         }
 
         repository.save(sheep);

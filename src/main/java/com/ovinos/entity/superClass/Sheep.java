@@ -10,6 +10,7 @@ import com.ovinos.entity.Enum.RaceSheep;
 import com.ovinos.entity.Enum.SheepSex;
 import com.ovinos.entity.Enum.SheepStatus;
 import com.ovinos.entity.auxiliarData.Characteristics;
+import com.ovinos.entity.auxiliarData.Notes;
 import com.ovinos.entity.auxiliarData.Treatment;
 import com.ovinos.entity.auxiliarData.Weight;
 import com.ovinos.service.exception.SheepException;
@@ -55,7 +56,11 @@ public abstract class Sheep {
     @JoinColumn(name = "treatment_id")
     private Treatment treatment;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "notes_id")
+    private Notes notes;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "batch_id")
     private Batch batch;
 
@@ -145,6 +150,14 @@ public abstract class Sheep {
 
     public void setTreatment(Treatment treatment) {
         this.treatment = treatment;
+    }
+
+    public Notes getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Notes notes) {
+        this.notes = notes;
     }
 
     @JsonIgnore
