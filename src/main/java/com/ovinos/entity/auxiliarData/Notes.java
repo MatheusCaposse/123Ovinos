@@ -52,4 +52,13 @@ public class Notes {
     public Long getId() {
         return id;
     }
+
+    @JsonIgnore
+    public Sheep getSheep() {
+        return sheep;
+    }
+
+    public void setSheep(Sheep sheep) {
+        this.sheep = sheep;
+    }
 }

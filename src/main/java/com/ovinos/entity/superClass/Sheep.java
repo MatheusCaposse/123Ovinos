@@ -25,8 +25,10 @@ import java.util.Date;
         "sex",
         "dataNascimento",
         "characteristics",
+        "batch",
         "weight",
-        "batch"
+        "notes"
+
 })
 @DiscriminatorColumn(name = "sexo")
 public abstract class Sheep {
@@ -60,7 +62,7 @@ public abstract class Sheep {
     @JoinColumn(name = "notes_id")
     private Notes notes;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "batch_id")
     private Batch batch;
 
@@ -71,11 +73,10 @@ public abstract class Sheep {
         this.dataNascimento = dataNascimento;
     }
 
-    public Sheep(String id,Date dataNascimento, Double peso, Batch batch) {
+    public Sheep(String id,Date dataNascimento, Batch batch) {
 
         this.id = id;
         this.dataNascimento = dataNascimento;
-        this.weight = new Weight(peso, 7.0);
         this.batch = batch;
 
         if (batch != null){
