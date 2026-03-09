@@ -130,4 +130,20 @@ public class SheepService {
 
         repository.save(sheep);
     }
+
+    @Transactional
+    public void addActivity(String id, ActivityDTO dto) {
+        Sheep sheep = repository.findById(id).orElseThrow(()-> new SheepException("Sheep not found"));
+
+        if (sheep.getActivity()==null){
+            Activity activity = new Activity(dto.getDateActivity(),dto.getActivity());
+            sheep.setActivity(activity);
+        } else {
+            Activity activity = sheep.getActivity();
+            activity.setDateActivity(dto.getDateActivity());
+            activity.setActivity(dto.getActivity());
+        }
+
+        repository.save(sheep);
+    }
 }

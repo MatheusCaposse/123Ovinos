@@ -76,4 +76,10 @@ public class SheepResource {
         sheepService.addNote(id, dto);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping(value = "/{id}/activity")
+    public ResponseEntity<Void> addActivity(@PathVariable String id, @RequestBody ActivityDTO dto){
+        sheepService.addActivity(id, dto);
+        return ResponseEntity.noContent().build();
+    }
 }

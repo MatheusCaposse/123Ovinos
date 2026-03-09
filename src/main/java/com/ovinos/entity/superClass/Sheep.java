@@ -9,10 +9,7 @@ import com.ovinos.entity.Enum.ConditionSheep;
 import com.ovinos.entity.Enum.RaceSheep;
 import com.ovinos.entity.Enum.SheepSex;
 import com.ovinos.entity.Enum.SheepStatus;
-import com.ovinos.entity.auxiliarData.Characteristics;
-import com.ovinos.entity.auxiliarData.Notes;
-import com.ovinos.entity.auxiliarData.Treatment;
-import com.ovinos.entity.auxiliarData.Weight;
+import com.ovinos.entity.auxiliarData.*;
 import com.ovinos.service.exception.SheepException;
 import jakarta.persistence.*;
 
@@ -61,6 +58,10 @@ public abstract class Sheep {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "notes_id")
     private Notes notes;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "activity_id")
+    private Activity activity;
 
     @ManyToOne
     @JoinColumn(name = "batch_id")
@@ -159,6 +160,14 @@ public abstract class Sheep {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
     @JsonIgnore
