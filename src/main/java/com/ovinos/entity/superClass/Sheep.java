@@ -68,6 +68,10 @@ public abstract class Sheep {
     @JoinColumn(name = "batch_id")
     private Batch batch;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "kinship_id")
+    private Kinship kinship;
+
     public Sheep(){}
 
     public Sheep(String id, Date dataNascimento){
@@ -169,6 +173,14 @@ public abstract class Sheep {
 
     public void setActivity(Activity activity) {
         this.activity = activity;
+    }
+
+    public Kinship getKinship() {
+        return kinship;
+    }
+
+    public void setKinship(Kinship kinship) {
+        this.kinship = kinship;
     }
 
     @JsonIgnore

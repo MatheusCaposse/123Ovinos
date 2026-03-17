@@ -162,4 +162,20 @@ public class SheepService {
             acitivityRepository.delete(activity);
         }
     }
+
+    @Transactional
+    public void addKinship(String id, KinshipDTO dto){
+        Sheep sheep = repository.findById(id).orElseThrow(()-> new SheepException("Sheep not found"));
+
+        if(sheep.getKinship()==null){
+            Kinship kinship = new Kinship(dto.getIdPai(), dto.getIdMae());
+            sheep.setKinship(kinship);
+        }else{
+            Kinship kinship = sheep.getKinship();
+            kinship.setIdPai(dto.getIdPai());
+            kinship.setIdMae(dto.getIdMae());
+        }
+
+        repository.save(sheep);
+    }
 }

@@ -88,4 +88,10 @@ public class SheepResource {
         sheepService.activityCompleted(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping(value = "/{id}/kinship")
+    public ResponseEntity<Void> addKinship(@PathVariable String id, @RequestBody KinshipDTO dto){
+        sheepService.addKinship(id, dto);
+        return ResponseEntity.noContent().build();
+    }
 }
