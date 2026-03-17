@@ -1,6 +1,7 @@
 package com.ovinos.service;
 
 import com.ovinos.DTO.*;
+import com.ovinos.entity.Enum.SheepSex;
 import com.ovinos.entity.Female;
 import com.ovinos.entity.auxiliarData.*;
 import com.ovinos.entity.superClass.Sheep;
@@ -166,6 +167,20 @@ public class SheepService {
     @Transactional
     public void addKinship(String id, KinshipDTO dto){
         Sheep sheep = repository.findById(id).orElseThrow(()-> new SheepException("Sheep not found"));
+
+        Sheep sheepMae = repository.findById(dto.getIdMae()).orElseThrow(()-> new SheepException("This mother id dosent exist"));
+        if(sheepMae.getSex()!= SheepSex.FEMEA){
+            throw new SheepException("This ID is not ID of a mother");
+        } else if (dto.getIdMae().equals(id)){
+            throw new SheepException("The id of mather and cub cannot be equal");
+        }
+
+        Sheep sheepPai = repository.findById(dto.getIdPai()).orElseThrow(()-> new SheepException("This father id dosent exist"));
+        if(sheepPai.getSex()!= SheepSex.MACHO){
+            throw new SheepException("This ID is not ID of a father");
+        }else if (dto.getIdPai().equals(id)){
+            throw new SheepException("The id of father and cub cannot be equal");
+        }
 
         if(sheep.getKinship()==null){
             Kinship kinship = new Kinship(dto.getIdPai(), dto.getIdMae());
