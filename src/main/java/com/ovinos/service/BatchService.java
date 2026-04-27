@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BatchService {
@@ -27,6 +28,10 @@ public class BatchService {
 
     public Batch insert(Batch batch){
         return repository.save(batch);
+    }
+
+    public Boolean batchExist(String id){
+        return repository.findById(id).isPresent();
     }
 
 }
