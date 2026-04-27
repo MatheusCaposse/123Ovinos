@@ -1,6 +1,7 @@
 package com.ovinos.resource;
 
 import com.ovinos.entity.Batch;
+import com.ovinos.entity.Enum.BatchType;
 import com.ovinos.service.BatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +29,11 @@ public class BatchResource {
     public ResponseEntity<Batch> findById(@PathVariable String id){
         Batch obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping(value = "/type")
+    public ResponseEntity<List<BatchType>> allTypes(){
+        List<BatchType> list = BatchType.getAllTypes();
+        return ResponseEntity.ok().body(list);
     }
 }
