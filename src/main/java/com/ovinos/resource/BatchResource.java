@@ -2,14 +2,11 @@ package com.ovinos.resource;
 
 import com.ovinos.entity.Batch;
 import com.ovinos.entity.Enum.BatchType;
+import com.ovinos.repository.BatchRepository;
 import com.ovinos.service.BatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +17,9 @@ public class BatchResource {
 
     @Autowired
     private BatchService service;
+
+    @Autowired
+    private BatchRepository repository;
 
     @GetMapping
     public ResponseEntity<List<Batch>> findAll(){
@@ -37,5 +37,12 @@ public class BatchResource {
     public ResponseEntity<List<BatchType>> allTypes(){
         List<BatchType> list = BatchType.getAllTypes();
         return ResponseEntity.ok().body(list);
+    }
+
+    @PostMapping(value = "/addBatch")
+    public ResponseEntity<Batch> addBatch(@RequestBody Batch batch){
+        Batch obj = new Batch(batch.getId(), batch.getBatchType());
+        service.insert(obj);
+        return ResponseEntity.ok().body(batch);
     }
 }
