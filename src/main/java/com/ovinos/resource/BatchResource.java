@@ -62,4 +62,20 @@ public class BatchResource {
             return ResponseEntity.badRequest().body(Map.of("message", resultado));
         }
     }
+
+    @PutMapping(value = "/addAnimal/{idBatch}/{idSheep}")
+    public ResponseEntity<?> addAnimal(@PathVariable String idBatch, @PathVariable String idSheep){
+        String resultado = service.addAnimal(idBatch, idSheep);
+        if(resultado.equals("Animal adicionado ao lote com sucesso")){
+           return ResponseEntity.ok().body(Map.of("message", resultado));
+        } else{
+            return ResponseEntity.badRequest().body(Map.of("message", resultado));
+        }
+    }
+
+    @GetMapping(value = "/allBatch")
+    public ResponseEntity<List<String>> getAllBatch(){
+        List<String> list = service.findAllBatch();
+        return ResponseEntity.ok().body(list);
+    }
 }

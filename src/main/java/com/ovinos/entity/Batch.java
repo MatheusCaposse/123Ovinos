@@ -1,5 +1,6 @@
 package com.ovinos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ovinos.DTO.SheepDTO;
 import com.ovinos.entity.Enum.BatchType;
 import com.ovinos.entity.superClass.Sheep;
@@ -60,6 +61,7 @@ public class Batch {
         this.listSheep = batch;
     }
 
+    @JsonIgnore
     public List<SheepDTO> getListSheep() {
         List<SheepDTO> obj = listSheep
                 .stream()
