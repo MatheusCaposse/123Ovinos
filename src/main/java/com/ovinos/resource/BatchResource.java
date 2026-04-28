@@ -52,4 +52,14 @@ public class BatchResource {
                 return ResponseEntity.badRequest().body(Map.of("message", "Já existe um lote com esse ID"));
             }
     }
+
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<?> deleteBatch(@PathVariable String id){
+        String resultado = service.deleteBatch(id);
+        if(resultado.equals("Deletado com sucesso")){
+            return ResponseEntity.ok().body(Map.of("message", resultado));
+        }else{
+            return ResponseEntity.badRequest().body(Map.of("message", resultado));
+        }
+    }
 }
