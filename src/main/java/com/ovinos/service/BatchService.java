@@ -1,5 +1,6 @@
 package com.ovinos.service;
 
+import com.ovinos.DTO.BatchInfoDTO;
 import com.ovinos.entity.Batch;
 import com.ovinos.entity.superClass.Sheep;
 import com.ovinos.repository.BatchRepository;
@@ -88,6 +89,37 @@ public class BatchService {
         }
 
         return listString;
+    }
+
+    public BatchInfoDTO infoBatch(){
+
+        List<Batch> list = repository.findAll();
+
+        if (list.isEmpty()) {
+            return new BatchInfoDTO(0, "0", "0");
+        }
+
+        int totalBatch = list.size();
+
+        int loweAnimals = Integer.MAX_VALUE;
+        String idBatchLower = "";
+        int higherAnimais = Integer.MIN_VALUE;
+        String idBatchHigher = "";
+
+        for(Batch batch : list){
+
+            int total = batch.getTotalAnimal();
+
+            if(total<loweAnimals){
+                loweAnimals = batch.getTotalAnimal();
+                idBatchLower = batch.getId();
+            } if(total>higherAnimais){
+                higherAnimais = batch.getTotalAnimal();
+                idBatchHigher = batch.getId();
+            }
+        }
+
+        return new BatchInfoDTO(totalBatch,("Lote " + idBatchHigher + " - Animais: " + higherAnimais), ("Lote " + idBatchLower +  " - Animais: " + loweAnimals));
     }
 
 }
