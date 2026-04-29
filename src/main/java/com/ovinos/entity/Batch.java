@@ -3,14 +3,12 @@ package com.ovinos.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ovinos.DTO.SheepDTO;
 import com.ovinos.entity.Enum.BatchType;
+import com.ovinos.entity.Enum.SheepSex;
 import com.ovinos.entity.superClass.Sheep;
-import com.ovinos.repository.SheepRepository;
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 public class Batch {
@@ -59,6 +57,36 @@ public class Batch {
 
     public void setListSheep(List<Sheep> batch) {
         this.listSheep = batch;
+    }
+
+    public int getTotalMale(){
+        List<Sheep> list = this.getListSheepSex();
+        int numberOfMale=0;
+        for(Sheep sheep : list){
+            if(sheep.getSex()== SheepSex.MACHO){
+                numberOfMale+=1;
+            }
+        }
+        return numberOfMale;
+    }
+
+    public int getTotalFemale(){
+        List<Sheep> list = this.getListSheepSex();
+        int numberOfFemale =0;
+        for(Sheep sheep : list){
+            if(sheep.getSex()== SheepSex.FEMEA){
+                numberOfFemale +=1;
+            }
+        }
+        return numberOfFemale;
+    }
+
+    @JsonIgnore
+    public List<Sheep> getListSheepSex() {
+        List<Sheep> obj = listSheep
+                .stream()
+                .toList();
+        return obj;
     }
 
     @JsonIgnore
