@@ -31,6 +31,12 @@ public class SheepResource {
         return ResponseEntity.ok().body(obj);
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable String id){
+        sheepService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/status/{sex}")
     public List<ConditionSheep> getStatusBySex(@PathVariable SheepSex sex) {
         return Arrays.stream(ConditionSheep.values())

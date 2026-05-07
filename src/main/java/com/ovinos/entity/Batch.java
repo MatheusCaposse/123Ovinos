@@ -50,7 +50,6 @@ public class Batch {
         this.batchType = batchType;
     }
 
-
     public int getTotalAnimal() {
         return listSheep != null ? listSheep.size() : 0;
     }

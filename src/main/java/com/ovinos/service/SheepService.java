@@ -43,13 +43,18 @@ public class SheepService {
     }
 
     public Sheep findById(String id){
-        Sheep obj = repository.findById(id).orElseThrow(() -> new SheepException("Sheep not found"));
+        Sheep obj = repository.findById(id).orElseThrow(() -> new SheepException("Animal não encontrado"));
         return obj;
+    }
+
+    public void deleteById(String id){
+        Sheep sheep = repository.findById(id).orElseThrow(()-> new SheepException("Animal não encontrado"));
+        repository.delete(sheep);
     }
 
     @Transactional
     public void addCharacteristics(String id, CharacteristicsDTO characteristicsDTO){
-        Sheep sheep = repository.findById(id).orElseThrow(() -> new SheepException("Sheep not found"));
+        Sheep sheep = repository.findById(id).orElseThrow(() -> new SheepException("Animal não encontrado"));
 
         Characteristics characteristics = new Characteristics(characteristicsDTO.getStatus(), characteristicsDTO.getConditionSheep(), characteristicsDTO.getRaceSheep());
 
@@ -62,7 +67,7 @@ public class SheepService {
     public void addTreatment(String id, TreatmentDTO treatmentDTO) {
 
         Sheep sheep = repository.findById(id)
-                .orElseThrow(() -> new SheepException("Sheep not found"));
+                .orElseThrow(() -> new SheepException("Animal não encontrado"));
 
         if (sheep.getTreatment() == null) {
             Treatment treatment = new Treatment(treatmentDTO.getDescricao(), treatmentDTO.getMedicamento(), treatmentDTO.getDosagem(), treatmentDTO.getDataAplicacao());
@@ -82,7 +87,7 @@ public class SheepService {
 
     @Transactional
     public void treatmentCompleted(String id){
-        Sheep sheep = repository.findById(id).orElseThrow(()-> new SheepException("Sheep not found"));
+        Sheep sheep = repository.findById(id).orElseThrow(()-> new SheepException("Animal não encontrado"));
         Treatment treatment = treatmentRepository.findById(sheep.getTreatment().getId()).orElseThrow(()-> new SheepException("Treatment not found"));
         treatmentRepository.delete(treatment);
 
