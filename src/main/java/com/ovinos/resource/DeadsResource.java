@@ -4,10 +4,7 @@ import com.ovinos.entity.Deads;
 import com.ovinos.service.DeadsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,15 +27,18 @@ public class DeadsResource {
         return ResponseEntity.ok().body(obj);
     }
 
-    @GetMapping(value = "/addDead/{id}")
-    public ResponseEntity<Void> addDeadSheep(@PathVariable String id){
-       service.addDeadSheep(id);
+    @DeleteMapping(value = "/addDead/{id}/{nota}")
+    public ResponseEntity<Void> addDeadSheep(@PathVariable String id, @PathVariable String nota){
+
+       service.addDeadSheep(id, nota);
        return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(value = "/revertDead/{id}")
-    public ResponseEntity<Void> revertDeadSheep(@PathVariable String id){
-        service.revertDeadSheep(id);
+    @DeleteMapping(value = "/revertDead/{id}")
+    public ResponseEntity<Void> addDeadSheep(@PathVariable String id){
+        service.revertDead(id);
         return ResponseEntity.noContent().build();
     }
+
+
 }

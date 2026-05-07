@@ -35,44 +35,36 @@ public class DeadsService {
     }
 
     public Deads findById(String id){
-        Deads obj = repository.findById(id).orElseThrow(() -> new SheepException("Sheep not found"));
+        Deads obj = repository.findById(id).orElseThrow(() -> new SheepException("Animal não encontrado"));
         return obj;
     }
 
-    public void addDeadSheep(String id){
+    public void addDeadSheep(String id, String nota){
         Sheep obj = sheepRepository.findById(id)
-                .orElseThrow(() -> new SheepException("Sheep not found"));
+                .orElseThrow(() -> new SheepException("Animal não encontrado"));
 
         Optional<Deads> dead = repository.findById(obj.getId());
 
         if(dead.isPresent()){
-            throw new SheepException("This sheep already in Deads table");
+            throw new SheepException("Esse animal já esta na tabela de Excluidos");
         }
-        repository.save(new Deads(obj));
+        repository.save(new Deads(obj, nota));
+        sheepRepository.delete(obj);
 
         sheepRepository.delete(obj);
     }
 
-    public void revertDeadSheep(String id){
-        Deads obj = repository.findById(id)
-                .orElseThrow(() -> new SheepException("Sheep not found"));
-
-        Optional<Deads> dead = repository.findById(obj.getId());
-
-        Batch oldBatch = obj.getBatch();
-
-        if(dead.isEmpty()){
-            throw new SheepException("This sheep is not in Deads table");
+    public void revertDead(String id){
+        Deads obj = repository.findById(id).orElseThrow(()-> new SheepException("Esse id não esta na tabela de mortos"));
+        if(obj.getSex()==SheepSex.FEMEA){
+            Female female = new Female(obj.getId(), obj.getDataNascimento());
+            sheepRepository.save(female);
+            repository.delete(obj);
+        } else {
+            Male male = new Male(obj.getId(), obj.getDataNascimento());
+            sheepRepository.save(male);
+            repository.delete(obj);
         }
-
-        if (obj.getSex() == SheepSex.FEMEA){
-            Female sheep = new Female(obj.getId(), obj.getDataNascimento(),  oldBatch);
-            sheepRepository.save(sheep);
-        }
-        else {
-            Male sheep = new Male(obj.getId(), obj.getDataNascimento(), oldBatch);
-            sheepRepository.save(sheep);
-        }
-        repository.delete(obj);
     }
+
 }

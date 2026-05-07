@@ -26,6 +26,11 @@ public class Female extends Sheep {
         this.setSex(SheepSex.FEMEA);
     }
 
+    public Female(String id,Date dataNascimento) {
+        super(id,dataNascimento);
+        this.setSex(SheepSex.FEMEA);
+    }
+
     public Pregnancy getPregnancy() {
         return pregnancy;
     }

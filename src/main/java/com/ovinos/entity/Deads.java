@@ -21,52 +21,27 @@ public class Deads {
     @Id
     private String id;
 
-    private Date dataNascimento;
-    private Double peso;
-    @ManyToOne
-    private Batch batch;
+    private String nota;
 
-    @Enumerated(EnumType.STRING)
     private SheepSex sex;
 
-    private SheepStatus lastStatus;
-
-    @Enumerated(EnumType.STRING)
-    private SheepStatus status = SheepStatus.MORTO;
+    private Date dataNascimento;
 
     public Deads(){}
 
-    public Deads(Sheep sheep) {
+    public Deads(Sheep sheep, String nota) {
         this.id = sheep.getId();
-        this.dataNascimento = sheep.getDataNascimento();
-        this.peso = sheep.getWeight().getCurrentWeight();
-        this.batch = sheep.getBatch();
         this.sex = sheep.getSex();
-
+        this.dataNascimento = sheep.getDataNascimento();
+        this.nota = nota;
     }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public Double getPeso() {
-        return peso;
-    }
-
-    public void setPeso(Double peso) {
-        this.peso = peso;
+    public String getNota() {
+        return nota;
     }
 
     public SheepSex getSex() {
@@ -77,28 +52,15 @@ public class Deads {
         this.sex = sex;
     }
 
-    public SheepStatus getStatus() {
-        return status;
+    public void setNota(String nota) {
+        this.nota = nota;
     }
 
-    public void setStatus(SheepStatus status) {
-        this.status = status;
+    public Date getDataNascimento() {
+        return dataNascimento;
     }
 
-    @JsonIgnore
-    public Batch getBatch() {
-        return batch;
-    }
-
-    public void setBatch(Batch batch) {
-        this.batch = batch;
-    }
-
-    public SheepStatus getLastStatus() {
-        return lastStatus;
-    }
-
-    public void setLastStatus(SheepStatus lastStatus) {
-        this.lastStatus = lastStatus;
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 }

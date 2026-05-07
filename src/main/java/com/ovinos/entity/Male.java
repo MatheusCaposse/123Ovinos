@@ -23,4 +23,9 @@ public class Male extends Sheep {
         super(id,dataNascimento , batch);
         this.setSex(SheepSex.MACHO);
     }
+
+    public Male(String id,Date dataNascimento) {
+        super(id,dataNascimento);
+        this.setSex(SheepSex.MACHO);
+    }
 }
