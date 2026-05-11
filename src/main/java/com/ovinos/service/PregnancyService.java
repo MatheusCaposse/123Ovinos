@@ -1,5 +1,6 @@
 package com.ovinos.service;
 
+import com.ovinos.entity.Enum.TypeBirth;
 import com.ovinos.entity.auxiliarData.Pregnancy;
 import com.ovinos.repository.PregnancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,10 @@ public class PregnancyService {
     public List<Pregnancy> findAll(){
         List<Pregnancy> list = repository.findAll();
         return list;
+    }
+
+    public List<TypeBirth> getType(){
+        List<TypeBirth> obj = TypeBirth.getTypeBirth();
+        return obj;
     }
 }

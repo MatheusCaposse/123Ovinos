@@ -1,12 +1,10 @@
 package com.ovinos.resource;
 
 import com.ovinos.DTO.*;
-import com.ovinos.entity.Enum.ConditionSheep;
-import com.ovinos.entity.Enum.RaceSheep;
-import com.ovinos.entity.Enum.SheepSex;
-import com.ovinos.entity.Enum.SheepStatus;
+import com.ovinos.entity.Enum.*;
 import com.ovinos.entity.superClass.Sheep;
 import com.ovinos.service.CharacteristicsService;
+import com.ovinos.service.PregnancyService;
 import com.ovinos.service.SheepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +22,9 @@ public class SheepResource {
 
     @Autowired
     private CharacteristicsService characteristicsService;
+
+    @Autowired
+    private PregnancyService pregnancyService;
 
     @GetMapping
     public ResponseEntity<List<Sheep>> findAll(){
@@ -48,7 +49,7 @@ public class SheepResource {
         return ResponseEntity.ok().body(sheepService.createSheep(sheep));
     }
 
-    @PostMapping(value = "/{id}/characteristics")
+    @PostMapping(value = "/characteristics/{id}")
     public ResponseEntity<Void> addCharacteristics(@PathVariable String id, @RequestBody CharacteristicsDTO characteristicsDTO){
         sheepService.addCharacteristics(id, characteristicsDTO);
 
@@ -72,7 +73,7 @@ public class SheepResource {
         return ResponseEntity.ok().body(obj);
     }
 
-    @PostMapping(value = "/{id}/treatments")
+    @PostMapping(value = "/treatments/{id}")
     public ResponseEntity<Void> addTreatment(@PathVariable String id, @RequestBody TreatmentDTO treatment){
 
         sheepService.addTreatment(id, treatment);
@@ -80,43 +81,49 @@ public class SheepResource {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(value = "/{id}/treatmentCompleted")
+    @PostMapping(value = "/treatmentCompleted/{id}")
     public ResponseEntity<Void> treatmentCompleted (@PathVariable String id){
         sheepService.treatmentCompleted(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(value = "/{id}/pregnancy")
+    @PostMapping(value = "/pregnancy/{id}")
     public ResponseEntity<Void> addPregnancy(@PathVariable String id, @RequestBody PregnancyDTO pregnancyDTO){
         sheepService.addPregnancy(id , pregnancyDTO);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(value = "/{id}/weight")
+    @GetMapping(value = "/pregnancy")
+    public ResponseEntity<List<TypeBirth>> getTypeBirth(){
+        List<TypeBirth> obj = pregnancyService.getType();
+        return ResponseEntity.ok().body(obj);
+    }
+
+    @PostMapping(value = "/weight/{id}")
     public ResponseEntity<Void> addWeight(@PathVariable String id, @RequestBody WeightDTO dto){
         sheepService.addWeight(id, dto);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(value = "/{id}/notes")
+    @PostMapping(value = "/notes/{id}")
     public ResponseEntity<Void> addNote(@PathVariable String id, @RequestBody NotesDTO dto){
         sheepService.addNote(id, dto);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(value = "/{id}/activity")
+    @PostMapping(value = "/activity/{id}")
     public ResponseEntity<Void> addActivity(@PathVariable String id, @RequestBody ActivityDTO dto){
         sheepService.addActivity(id, dto);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(value = "/{id}/activityCompleted")
+    @PostMapping(value = "/activityCompleted/{id}")
     public ResponseEntity<Void> activityCompleted(@PathVariable String id){
         sheepService.activityCompleted(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(value = "/{id}/kinship")
+    @PostMapping(value = "/kinship/{id}")
     public ResponseEntity<Void> addKinship(@PathVariable String id, @RequestBody KinshipDTO dto){
         sheepService.addKinship(id, dto);
         return ResponseEntity.noContent().build();
