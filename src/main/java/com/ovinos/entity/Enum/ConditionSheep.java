@@ -1,5 +1,7 @@
 package com.ovinos.entity.Enum;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 public enum ConditionSheep {
@@ -24,5 +26,26 @@ public enum ConditionSheep {
 
     public boolean canBe(SheepSex sex) {
         return sexosPermitidos.contains(sex);
+    }
+
+    public static List<ConditionSheep> getFemaleCodition(){
+        List<ConditionSheep> list = Arrays.asList(RECRIA,
+                CONFINAMENTO,
+                MAMANDO,
+
+                VAZIA,
+                PROTOCOLADA,
+                MONTA,
+                COBERTA,
+                PRENHA,
+                ABSORVEU,
+                PARIDA,
+                ABORTO);
+        return list;
+    }
+
+    public static List<ConditionSheep> getMaleCodition(){
+        List<ConditionSheep> list = Arrays.asList(RECRIA, CONFINAMENTO, MAMANDO);
+        return list;
     }
 }

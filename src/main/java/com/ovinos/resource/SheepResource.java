@@ -2,8 +2,11 @@ package com.ovinos.resource;
 
 import com.ovinos.DTO.*;
 import com.ovinos.entity.Enum.ConditionSheep;
+import com.ovinos.entity.Enum.RaceSheep;
 import com.ovinos.entity.Enum.SheepSex;
+import com.ovinos.entity.Enum.SheepStatus;
 import com.ovinos.entity.superClass.Sheep;
+import com.ovinos.service.CharacteristicsService;
 import com.ovinos.service.SheepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,9 @@ public class SheepResource {
 
     @Autowired
     private SheepService sheepService;
+
+    @Autowired
+    private CharacteristicsService characteristicsService;
 
     @GetMapping
     public ResponseEntity<List<Sheep>> findAll(){
@@ -42,18 +48,28 @@ public class SheepResource {
         return ResponseEntity.ok().body(sheepService.createSheep(sheep));
     }
 
-    @GetMapping("/status/{sex}")
-    public List<ConditionSheep> getStatusBySex(@PathVariable SheepSex sex) {
-        return Arrays.stream(ConditionSheep.values())
-                .filter(status -> status.canBe(sex))
-                .toList();
-    }
-
     @PostMapping(value = "/{id}/characteristics")
     public ResponseEntity<Void> addCharacteristics(@PathVariable String id, @RequestBody CharacteristicsDTO characteristicsDTO){
         sheepService.addCharacteristics(id, characteristicsDTO);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/race")
+    public ResponseEntity<List<RaceSheep>> getAllRace(){
+        List<RaceSheep> list = characteristicsService.getAllRace();
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping(value = "/condition/{sex}")
+    public ResponseEntity<List<ConditionSheep>> getCondition(@PathVariable SheepSex sex){
+        List<ConditionSheep> obj = characteristicsService.getCondition(sex);
+        return ResponseEntity.ok().body(obj);
+    }
+    @GetMapping(value = "/status")
+    public ResponseEntity<List<SheepStatus>> getStatus(){
+        List<SheepStatus> obj = characteristicsService.getStatus();
+        return ResponseEntity.ok().body(obj);
     }
 
     @PostMapping(value = "/{id}/treatments")
