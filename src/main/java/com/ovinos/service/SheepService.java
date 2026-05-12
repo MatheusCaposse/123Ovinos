@@ -112,7 +112,17 @@ public class SheepService {
 
         // KINSHIP
         if (sheep.getKinship() != null && sheep.getKinship().getIdMae() != null) {
-            obj.setKinship(sheep.getKinship());
+            Sheep pai = repository.findById(sheep.getKinship().getIdPai()).orElseThrow(() -> new SheepException("O ID do pai não existe"));
+            Sheep mae = repository.findById(sheep.getKinship().getIdMae()).orElseThrow(() -> new SheepException("O ID da mãe não existe"));
+            if(pai.getSex()==SheepSex.MACHO && mae.getSex()==SheepSex.FEMEA){
+                obj.setKinship(sheep.getKinship());
+            }else {
+                if(pai.getSex()!=SheepSex.MACHO){
+                    throw new SheepException("O ID informado não é de um macho");
+                } else if (mae.getSex()!=SheepSex.FEMEA){
+                    throw new SheepException("O ID informado não é de uma Femea");
+                }
+            }
         }
 
         // NOTES
