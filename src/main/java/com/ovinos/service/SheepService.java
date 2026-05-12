@@ -1,6 +1,7 @@
 package com.ovinos.service;
 
 import com.ovinos.DTO.*;
+import com.ovinos.entity.Batch;
 import com.ovinos.entity.Enum.SheepSex;
 import com.ovinos.entity.Female;
 import com.ovinos.entity.Male;
@@ -23,6 +24,9 @@ public class SheepService {
 
     @Autowired
     private SheepRepository repository;
+
+    @Autowired
+    BatchRepository batchRepository;
 
     @Autowired
     private FemaleRepository femaleRepository;
@@ -56,7 +60,7 @@ public class SheepService {
 
     public Sheep createSheep(SheepDTO obj) {
         Optional<Sheep> test = repository.findById(obj.getId());
-        if(test.isPresent()){
+        if (test.isPresent()) {
             throw new SheepException("Já existe um animal com esse ID");
         }
 
@@ -72,6 +76,68 @@ public class SheepService {
                     : new Male(obj.getId(), obj.getDataNascimento());
         }
         return repository.save(sheep);
+    }
+
+    @Transactional
+    public Sheep updateSheep(UpdateSheepDTO sheep) {
+
+        Sheep obj = repository.findById(sheep.getId()).orElseThrow(() -> new SheepException("Animal não encontrado"));
+
+        //BATCH
+        if ( sheep.getBatch()!=null && sheep.getBatch().getId()!=null){
+            Batch batch = batchRepository.findById(sheep.getBatch().getId()).orElseThrow(()-> new SheepException("Lote nao encontrado"));
+            obj.setBatch(batch);
+        }
+
+        //SEX
+        if (sheep.getSex() != null) {
+            obj.setSex(sheep.getSex());
+        }
+
+        //DATANASCIMENTO
+        if(sheep.getDataNascimento()!=null){
+            obj.setDataNascimento(sheep.getDataNascimento());
+        }
+
+        // ACTIVITY
+        if (sheep.getActivity() != null && sheep.getActivity().getDateActivity() != null) {
+
+            obj.setActivity(sheep.getActivity());
+        }
+
+        // CHARACTERISTICS
+        if (sheep.getCharacteristics() != null && sheep.getCharacteristics().getConditionSheep() != null) {
+            obj.setCharacteristics(sheep.getCharacteristics());
+        }
+
+        // KINSHIP
+        if (sheep.getKinship() != null && sheep.getKinship().getIdMae() != null) {
+            obj.setKinship(sheep.getKinship());
+        }
+
+        // NOTES
+        if (sheep.getNotes() != null && sheep.getNotes().getAlert() != null) {
+            obj.setNotes(sheep.getNotes());
+        }
+
+        // TREATMENT
+        if (sheep.getTreatment() != null && sheep.getTreatment().getDataAplicacao() != null) {
+            obj.setTreatment(sheep.getTreatment());
+        }
+
+        // WEIGHT
+        if (sheep.getWeight() != null && sheep.getWeight().getCurrentWeight() != null) {
+            obj.setWeight(sheep.getWeight());
+        }
+
+        // PREGNANCY
+        if (obj instanceof Female && sheep.getPregnancy()!=null) {
+            Female femaleObj = (Female) obj;
+
+            femaleObj.setPregnancy(sheep.getPregnancy());
+        }
+
+        return repository.save(obj);
     }
 
     @Transactional
@@ -142,7 +208,6 @@ public class SheepService {
             weight.setCurrentWeighing(dto.getCurrentWeighing());
             weight.setFirstWeighing(dto.getFirstWeighing());
         }
-
         repository.save(sheep);
     }
 

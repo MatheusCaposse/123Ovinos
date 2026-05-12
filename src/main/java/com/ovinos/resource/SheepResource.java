@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -49,10 +48,9 @@ public class SheepResource {
         return ResponseEntity.ok().body(sheepService.createSheep(sheep));
     }
 
-    @PostMapping(value = "/characteristics/{id}")
-    public ResponseEntity<Void> addCharacteristics(@PathVariable String id, @RequestBody CharacteristicsDTO characteristicsDTO){
-        sheepService.addCharacteristics(id, characteristicsDTO);
-
+    @PutMapping(value = "/update-sheep")
+    public ResponseEntity<Void> updateSheep(@RequestBody UpdateSheepDTO sheep){
+        sheepService.updateSheep(sheep);
         return ResponseEntity.noContent().build();
     }
 
@@ -73,23 +71,9 @@ public class SheepResource {
         return ResponseEntity.ok().body(obj);
     }
 
-    @PostMapping(value = "/treatments/{id}")
-    public ResponseEntity<Void> addTreatment(@PathVariable String id, @RequestBody TreatmentDTO treatment){
-
-        sheepService.addTreatment(id, treatment);
-
-        return ResponseEntity.noContent().build();
-    }
-
     @PostMapping(value = "/treatmentCompleted/{id}")
     public ResponseEntity<Void> treatmentCompleted (@PathVariable String id){
         sheepService.treatmentCompleted(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping(value = "/pregnancy/{id}")
-    public ResponseEntity<Void> addPregnancy(@PathVariable String id, @RequestBody PregnancyDTO pregnancyDTO){
-        sheepService.addPregnancy(id , pregnancyDTO);
         return ResponseEntity.noContent().build();
     }
 
@@ -99,33 +83,10 @@ public class SheepResource {
         return ResponseEntity.ok().body(obj);
     }
 
-    @PostMapping(value = "/weight/{id}")
-    public ResponseEntity<Void> addWeight(@PathVariable String id, @RequestBody WeightDTO dto){
-        sheepService.addWeight(id, dto);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping(value = "/notes/{id}")
-    public ResponseEntity<Void> addNote(@PathVariable String id, @RequestBody NotesDTO dto){
-        sheepService.addNote(id, dto);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping(value = "/activity/{id}")
-    public ResponseEntity<Void> addActivity(@PathVariable String id, @RequestBody ActivityDTO dto){
-        sheepService.addActivity(id, dto);
-        return ResponseEntity.noContent().build();
-    }
 
     @PostMapping(value = "/activityCompleted/{id}")
     public ResponseEntity<Void> activityCompleted(@PathVariable String id){
         sheepService.activityCompleted(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping(value = "/kinship/{id}")
-    public ResponseEntity<Void> addKinship(@PathVariable String id, @RequestBody KinshipDTO dto){
-        sheepService.addKinship(id, dto);
         return ResponseEntity.noContent().build();
     }
 }
