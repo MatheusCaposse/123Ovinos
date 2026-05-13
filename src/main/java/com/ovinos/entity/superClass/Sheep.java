@@ -60,10 +60,6 @@ public abstract class Sheep {
     @JoinColumn(name = "notes_id")
     private Notes notes;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "activity_id")
-    private Activity activity;
-
     @ManyToOne
     @JoinColumn(name = "batch_id")
     private Batch batch;
@@ -165,14 +161,6 @@ public abstract class Sheep {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
-    }
-
-    public Activity getActivity() {
-        return activity;
-    }
-
-    public void setActivity(Activity activity) {
-        this.activity = activity;
     }
 
     public Kinship getKinship() {

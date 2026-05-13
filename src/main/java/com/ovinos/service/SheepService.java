@@ -100,11 +100,6 @@ public class SheepService {
             obj.setDataNascimento(sheep.getDataNascimento());
         }
 
-        // ACTIVITY
-        if (sheep.getActivity() != null && sheep.getActivity().getDateActivity() != null) {
-
-            obj.setActivity(sheep.getActivity());
-        }
 
         // CHARACTERISTICS
         if (sheep.getCharacteristics() != null && sheep.getCharacteristics().getConditionSheep() != null) {
@@ -241,34 +236,6 @@ public class SheepService {
     public List<Alert> getAlert(){
         List<Alert> list = Alert.getAlerts();
         return list;
-    }
-
-    @Transactional
-    public void addActivity(String id, ActivityDTO dto) {
-        Sheep sheep = repository.findById(id).orElseThrow(() -> new SheepException("Sheep not found"));
-
-        if (sheep.getActivity() == null) {
-            Activity activity = new Activity(dto.getDateActivity(), dto.getActivity());
-            sheep.setActivity(activity);
-        } else {
-            Activity activity = sheep.getActivity();
-            activity.setDateActivity(dto.getDateActivity());
-            activity.setActivity(dto.getActivity());
-        }
-
-        repository.save(sheep);
-    }
-
-    public void activityCompleted(String id) {
-        Sheep sheep = repository.findById(id).orElseThrow(() -> new SheepException("Sheep not found"));
-        if (sheep.getActivity() == null) {
-            throw new SheepException("This sheep dont have any activity");
-        } else {
-            Activity activity = acitivityRepository.findById(sheep.getActivity().getId()).orElseThrow(() -> new SheepException("Activity not found"));
-            sheep.setActivity(null);
-            repository.save(sheep);
-            acitivityRepository.delete(activity);
-        }
     }
 
     @Transactional

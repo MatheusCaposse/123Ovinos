@@ -89,10 +89,4 @@ public class SheepResource {
         return ResponseEntity.ok().body(obj);
     }
 
-
-    @PostMapping(value = "/{id}/activityCompleted")
-    public ResponseEntity<Void> activityCompleted(@PathVariable String id){
-        sheepService.activityCompleted(id);
-        return ResponseEntity.noContent().build();
-    }
 }

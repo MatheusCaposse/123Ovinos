@@ -13,9 +13,6 @@ public class Activity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "activity")
-    private Sheep sheep;
-
     private String activity;
     private LocalDate dateActivity;
 
@@ -29,11 +26,6 @@ public class Activity {
     @JsonIgnore
     public Long getId() {
         return id;
-    }
-
-    @JsonIgnore
-    public Sheep getSheep() {
-        return sheep;
     }
 
     public String getActivity() {

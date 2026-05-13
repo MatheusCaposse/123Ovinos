@@ -27,8 +27,6 @@ public class UpdateSheepDTO {
 
     private Notes notes;
 
-    private Activity activity;
-
     private Kinship kinship;
 
     private Treatment treatment;
@@ -45,7 +43,6 @@ public class UpdateSheepDTO {
         this.characteristics = obj.getCharacteristics();
         this.weight = obj.getWeight();
         this.notes = obj.getNotes();
-        this.activity = obj.getActivity();
         this.kinship = obj.getKinship();
         this.treatment = obj.getTreatment();
         if(obj instanceof Female){
@@ -108,14 +105,6 @@ public class UpdateSheepDTO {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
-    }
-
-    public Activity getActivity() {
-        return activity;
-    }
-
-    public void setActivity(Activity activity) {
-        this.activity = activity;
     }
 
     public Kinship getKinship() {
