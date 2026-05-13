@@ -5,14 +5,12 @@ import com.ovinos.entity.Batch;
 import com.ovinos.entity.superClass.Sheep;
 import com.ovinos.repository.BatchRepository;
 import com.ovinos.repository.SheepRepository;
-import com.ovinos.resource.BatchResource;
 import com.ovinos.service.exception.BatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service

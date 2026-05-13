@@ -1,23 +1,21 @@
-package com.ovinos.resource;
+package com.ovinos.controller;
 
 import com.ovinos.DTO.BatchInfoDTO;
 import com.ovinos.entity.Batch;
 import com.ovinos.entity.Enum.BatchType;
 import com.ovinos.repository.BatchRepository;
 import com.ovinos.service.BatchService;
-import com.ovinos.service.exception.BatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping(value = "/batch")
-public class BatchResource {
+public class BatchController {
 
     @Autowired
     private BatchService service;

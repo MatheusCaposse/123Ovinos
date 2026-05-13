@@ -1,4 +1,4 @@
-package com.ovinos.resource;
+package com.ovinos.controller;
 
 import com.ovinos.DTO.ActivityDTO;
 import com.ovinos.entity.auxiliarData.Activity;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/activity")
-public class ActivityResource {
+public class ActivityController {
 
     @Autowired
     private ActivityService activityService;

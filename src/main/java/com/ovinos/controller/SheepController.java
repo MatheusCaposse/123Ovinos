@@ -1,4 +1,4 @@
-package com.ovinos.resource;
+package com.ovinos.controller;
 
 import com.ovinos.DTO.*;
 import com.ovinos.entity.Enum.*;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/sheep")
-public class SheepResource {
+public class SheepController {
 
     @Autowired
     private SheepService sheepService;

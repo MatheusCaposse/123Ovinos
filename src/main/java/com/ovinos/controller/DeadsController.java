@@ -1,4 +1,4 @@
-package com.ovinos.resource;
+package com.ovinos.controller;
 
 import com.ovinos.entity.Deads;
 import com.ovinos.service.DeadsService;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/deads")
-public class DeadsResource {
+public class DeadsController {
 
     @Autowired
     private DeadsService service;
