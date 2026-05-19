@@ -26,6 +26,7 @@ Este projeto foi desenvolvido utilizando as seguintes tecnologias:
 - Java
 - Spring Boot
 - Spring Data JPA
+- Spring Security
 - Hibernate
 
 2)Banco de Dados
