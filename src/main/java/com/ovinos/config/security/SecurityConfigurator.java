@@ -20,19 +20,25 @@ public class SecurityConfigurator {
     @Autowired
     private UserService userService;
 
-    public SecurityFilterChain securityFilterChain(HttpSecurity http){
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/login").permitAll()
-                        .anyRequest().authenticated())
+                .cors(Customizer.withDefaults())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/sheep/**").permitAll()
+                        .requestMatchers("/batch/**").permitAll()
+                        .anyRequest().authenticated()
+                )
                 .formLogin(Customizer.withDefaults());
 
         return http.build();
     }
 
-
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
