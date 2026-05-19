@@ -1,5 +1,6 @@
 package com.ovinos.service;
 
+import com.ovinos.entity.user.User;
 import com.ovinos.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,8 +17,18 @@ public class UserService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByEmailIgnoreCase(username)
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println("Tentando login com: " + email);
+        User user = repository.findByEmailIgnoreCase(email)
                 .orElseThrow(()-> new UsernameNotFoundException("Usuario não encontrado"));
+
+        System.out.println("Usuário encontrado!");
+
+        return org.springframework.security.core.userdetails.User
+                .builder()
+                .username(user.getEmail())
+                .password(user.getPassword())
+                .roles("USER")
+                .build();
     }
 }
