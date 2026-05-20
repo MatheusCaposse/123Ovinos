@@ -22,6 +22,7 @@ public class SecurityConfigurator {
     @Autowired
     private UserService userService;
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -30,36 +31,44 @@ public class SecurityConfigurator {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/sheep/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/sheep/**").authenticated()
-                        .requestMatchers(HttpMethod.PUT,"/sheep/**").authenticated()
-                        .requestMatchers(HttpMethod.DELETE,"/sheep/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/sheep/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/sheep/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/sheep/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/sheep/**").authenticated()
 
 
-                        .requestMatchers(HttpMethod.GET,"/batch/**").permitAll()
-                        .requestMatchers(HttpMethod.PUT,"/batch/**").authenticated()
-                        .requestMatchers(HttpMethod.POST,"/batch/**").authenticated()
-                        .requestMatchers(HttpMethod.DELETE,"/batch/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/batch/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/batch/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/batch/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/batch/**").authenticated()
 
-                        .requestMatchers(HttpMethod.GET,"/deads/**").permitAll()
-                        .requestMatchers(HttpMethod.PUT,"/deads/**").authenticated()
-                        .requestMatchers(HttpMethod.POST,"/deads/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/deads/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/deads/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/deads/**").authenticated()
 
-                        .requestMatchers(HttpMethod.GET,"/activity/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/activity/**").authenticated()
-                        .requestMatchers(HttpMethod.PUT,"/activity/**").authenticated()
-                        .requestMatchers(HttpMethod.DELETE,"/activity/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/activity/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/activity/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/activity/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/activity/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
 
-                        .successHandler((request, response, authentication) -> {
+                        .loginProcessingUrl("/login")
 
+                        .successHandler((request, response, authentication) -> {
                             response.setStatus(200);
                         })
 
                         .failureHandler((request, response, exception) -> {
+                            response.setStatus(401);
+                        })
 
+                        .permitAll()
+                )
+
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint((request, response, authException) -> {
                             response.setStatus(401);
                         })
                 );
@@ -70,11 +79,6 @@ public class SecurityConfigurator {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return userService;
     }
 
 

@@ -24,11 +24,6 @@ public class UserService implements UserDetailsService {
 
         System.out.println("Usuário encontrado!");
 
-        return org.springframework.security.core.userdetails.User
-                .builder()
-                .username(user.getEmail())
-                .password(user.getPassword())
-                .roles("USER")
-                .build();
+        return user;
     }
 }
