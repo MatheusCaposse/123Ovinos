@@ -23,7 +23,6 @@ public class Activity {
         this.activity = activity;
     }
 
-    @JsonIgnore
     public Long getId() {
         return id;
     }
@@ -43,4 +42,6 @@ public class Activity {
     public void setDateActivity(LocalDate dateActivity) {
         this.dateActivity = dateActivity;
     }
+
+
 }
