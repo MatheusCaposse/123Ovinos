@@ -1,6 +1,7 @@
 package com.ovinos.service;
 
 import com.ovinos.DTO.BatchInfoDTO;
+import com.ovinos.DTO.UpdateBatchDTO;
 import com.ovinos.entity.Batch;
 import com.ovinos.entity.superClass.Sheep;
 import com.ovinos.repository.BatchRepository;
@@ -120,4 +121,10 @@ public class BatchService {
         return new BatchInfoDTO(totalBatch,("Lote " + idBatchHigher + " - Animais: " + higherAnimais), ("Lote " + idBatchLower +  " - Animais: " + loweAnimals));
     }
 
+    public void updateBatch(UpdateBatchDTO obj) {
+        Batch batch = repository.findById(obj.getId()).orElseThrow(()-> new BatchException("Lote não encontrado"));
+        batch.setBatchType(obj.getBatchType());
+        batch.setId(obj.getId());
+        repository.save(batch);
+    }
 }

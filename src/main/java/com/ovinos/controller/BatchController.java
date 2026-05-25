@@ -1,6 +1,7 @@
 package com.ovinos.controller;
 
 import com.ovinos.DTO.BatchInfoDTO;
+import com.ovinos.DTO.UpdateBatchDTO;
 import com.ovinos.entity.Batch;
 import com.ovinos.entity.Enum.BatchType;
 import com.ovinos.repository.BatchRepository;
@@ -33,6 +34,12 @@ public class BatchController {
     public ResponseEntity<Batch> findById(@PathVariable String id){
         Batch obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> update(@RequestBody UpdateBatchDTO obj){
+        service.updateBatch(obj);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping(value = "/infoBatch")
